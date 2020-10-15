@@ -1,13 +1,17 @@
 package com.saldivar.certifgood
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
+import com.saldivar.certifgood.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFunctionality, View.OnClickListener {
+    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
     private lateinit var idName: String
     private lateinit var contrasenia: String
     private lateinit var progressBarImageView: ProgressBar
@@ -18,7 +22,6 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
         supportActionBar?.hide()
         checkConnectionAndPermission(this@LoginActivity)
         ui()
-        validarDatosUsurio()
     }
 
     private fun ui() {
@@ -26,9 +29,6 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
         progressBarImageView = findViewById(R.id.progressBarImageView)
     }
 
-    private fun validarDatosUsurio() {
-        ID.text
-    }
 
     override fun onClick(v: View) {
         when(v.id){
@@ -62,5 +62,21 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
     private fun guardarCredentiales()=with(CredentialesLogin) {
         usuario = idName
         password = contrasenia
+        buscarUsuarioFirebase()
+    }
+
+    private fun buscarUsuarioFirebase() {
+        val respuesta =viewModel.getResultadoBusquedaUsuario()
+        if(respuesta){
+            nextActivity()
+        }else{
+            ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)
+        }
+    }
+
+    private fun nextActivity(){
+        startActivity(Intent(this, CertificacionesActivity::class.java))
+        overridePendingTransition(R.anim.left_in, R.anim.left_out)
+        finish()
     }
 }

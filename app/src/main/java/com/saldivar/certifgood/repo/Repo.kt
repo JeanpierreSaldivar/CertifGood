@@ -1,12 +1,17 @@
 package com.saldivar.certifgood.repo
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.saldivar.certifgood.CredentialesLogin
 
 class Repo {
-    val dbFirebase =FirebaseFirestore.getInstance()
-    fun getCredenciales():LiveData<Boolean>{
-        dbFirebase.collection("USUARIOS").whereEqualTo("user",)
-
+    fun getCredenciales():Boolean{
+          FirebaseFirestore.getInstance().collection("USUARIOS").whereEqualTo("user", CredentialesLogin.usuario)
+            .whereEqualTo("password", CredentialesLogin.password).get().addOnSuccessListener {
+                for(document in it){
+                    CredentialesLogin.usuario_activo = true
+                }
+            }
+        return CredentialesLogin.usuario_activo
     }
 }
