@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
 import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFunctionality, View.OnClickListener {
@@ -33,10 +34,15 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
     override fun onClick(v: View) {
         when(v.id){
             R.id.Siguientebtn->{
-                checkConnectionAndPermission(this@LoginActivity)
-                deleteColorERROR()
-                captureDataEntered()
-                validateCampos()
+
+                if(CheckInternetConnection.validateInternetConnection(this@LoginActivity)){
+                    deleteColorERROR()
+                    captureDataEntered()
+                    validateCampos()
+                }
+                else{
+                  ShowDialog.dialogShow("Compruebe su conexion a internet",this@LoginActivity)
+                }
             }
         }
 
@@ -66,8 +72,8 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
     }
 
     private fun buscarUsuarioFirebase() {
-        val respuesta =viewModel.getResultadoBusquedaUsuario()
-        if(respuesta){
+        viewModel.getResultadoBusquedaUsuario()
+        if(CredentialesLogin.usuario_activo){
             nextActivity()
         }else{
             ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)

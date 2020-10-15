@@ -8,9 +8,7 @@ class Repo {
     fun getCredenciales():Boolean{
           FirebaseFirestore.getInstance().collection("USUARIOS").whereEqualTo("user", CredentialesLogin.usuario)
             .whereEqualTo("password", CredentialesLogin.password).get().addOnSuccessListener {
-                for(document in it){
-                    CredentialesLogin.usuario_activo = true
-                }
+                  CredentialesLogin.usuario_activo = true
             }
         return CredentialesLogin.usuario_activo
     }
