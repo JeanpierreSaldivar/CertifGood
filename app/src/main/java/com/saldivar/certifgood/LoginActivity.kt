@@ -4,10 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
 import android.widget.ProgressBar
+import androidx.core.view.isGone
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
 import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.permisolibrary.goneModalProgressSaldivar
+import com.saldivar.permisolibrary.showModalProgressSaldivar
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -72,12 +77,15 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
     }
 
     private fun buscarUsuarioFirebase() {
-        viewModel.getResultadoBusquedaUsuario()
-        if(CredentialesLogin.usuario_activo){
-            nextActivity()
-        }else{
-            ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)
-        }
+        showModalProgressSaldivar(progressBarImageView)
+        viewModel.getResultadoBusquedaUsuario().observe(this, Observer {
+            goneModalProgressSaldivar(progressBarImageView)
+            if(it){
+                nextActivity()
+            }else{
+                ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)
+            }
+        })
     }
 
     private fun nextActivity(){
