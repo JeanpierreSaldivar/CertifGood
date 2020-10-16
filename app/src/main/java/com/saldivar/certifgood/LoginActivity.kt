@@ -80,10 +80,11 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
         showModalProgressSaldivar(progressBarImageView)
         viewModel.getResultadoBusquedaUsuario().observe(this, Observer {
             goneModalProgressSaldivar(progressBarImageView)
-            if(it){
-                nextActivity()
-            }else{
-                ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)
+            when(it){
+                "Usuario existe"->nextActivity()
+                "Usuario activo"->ShowDialog.dialogShow("Este usuario esta dentro del sistema actualmente, " +
+                        "intentelo mas tarde",this@LoginActivity)
+                else->ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)
             }
         })
     }

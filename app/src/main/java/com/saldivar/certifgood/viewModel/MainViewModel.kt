@@ -7,8 +7,23 @@ import com.saldivar.certifgood.repo.Repo
 
 class MainViewModel: ViewModel() {
     private val repo= Repo()
-    fun getResultadoBusquedaUsuario():LiveData<Boolean>{
-        val mutableResponse =MutableLiveData<Boolean>()
+    fun getActividadUsuarioEncontrado():LiveData<String>{
+        val mutableResponse = MutableLiveData<String>()
+        repo.consultaActividadUser().observeForever{
+            mutableResponse.value = it
+        }
+        return mutableResponse
+    }
+
+    fun updateActividadUsuario(Document:String):LiveData<Boolean>{
+        val mutableResponse = MutableLiveData<Boolean>()
+        repo.updateActividadUser(Document).observeForever{
+            mutableResponse.value = it
+        }
+        return mutableResponse
+    }
+    fun getResultadoBusquedaUsuario():LiveData<String>{
+        val mutableResponse =MutableLiveData<String>()
         repo.getCredenciales().observeForever{
             mutableResponse.value=it
         }
