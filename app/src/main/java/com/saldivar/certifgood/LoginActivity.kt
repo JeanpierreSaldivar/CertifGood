@@ -81,9 +81,23 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
         viewModel.getResultadoBusquedaUsuario().observe(this, Observer {
             goneModalProgressSaldivar(progressBarImageView)
             when(it){
-                "Usuario existe"->nextActivity()
-                "Usuario activo"->ShowDialog.dialogShow("Este usuario esta dentro del sistema actualmente, " +
-                        "intentelo mas tarde",this@LoginActivity)
+                "Usuario existe"->{
+                    viewModel.getActividadUsuarioEncontrado().observe(this, Observer {actividad->
+                        when(actividad){
+                            "Usuario activo"->ShowDialog.dialogShow("Este usuario esta dentro del sistema actualmente, " +
+                                    "intentelo mas tarde",this@LoginActivity)
+                            else->{
+                                viewModel.updateActividadUsuario(CredentialesLogin.id_documento).observe(this,
+                                    Observer { actualizacion->
+                                        when(actualizacion){
+                                            true->nextActivity()
+                                            false->ShowDialog.dialogShow("Ocurrio un error inesperado",this@LoginActivity)
+                                        }
+                                    })
+                            }
+                        }
+                    })
+                }
                 else->ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)
             }
         })

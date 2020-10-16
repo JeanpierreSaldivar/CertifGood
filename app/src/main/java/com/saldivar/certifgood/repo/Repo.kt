@@ -13,6 +13,7 @@ class Repo {
             .whereEqualTo("password", CredentialesLogin.password).get().addOnSuccessListener {
                 if(it.size() != 0){
                     mutableResponse.value ="Usuario existe"
+                    CredentialesLogin.id_documento = it.documents[0].id
                 }else{
                     mutableResponse.value = "No existe Usuario"
                 }
