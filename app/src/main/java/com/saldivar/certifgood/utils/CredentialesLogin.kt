@@ -1,4 +1,4 @@
-package com.saldivar.certifgood
+package com.saldivar.certifgood.utils
 
 object CredentialesLogin {
     var usuario:String = ""

@@ -1,10 +1,10 @@
-package com.saldivar.certifgood.permissionsAndConexion
+package com.saldivar.certifgood.utils.permissionsAndConexion
 
 import android.app.Activity
 import com.saldivar.certifgood.R
-import com.saldivar.certifgood.ShowDialog
-import com.saldivar.certifgood.permissionsAndConexion.CheckPermissions.statusPermissions
-import com.saldivar.certifgood.permissionsAndConexion.CheckPermissions.validatePermissions
+import com.saldivar.certifgood.utils.ShowDialog
+import com.saldivar.certifgood.utils.permissionsAndConexion.CheckPermissions.statusPermissions
+import com.saldivar.certifgood.utils.permissionsAndConexion.CheckPermissions.validatePermissions
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection.internetConnectionStatus
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection.validateInternetConnection
 

@@ -1,4 +1,4 @@
-package com.saldivar.certifgood.permissionsAndConexion
+package com.saldivar.certifgood.utils.permissionsAndConexion
 
 import android.Manifest
 import android.app.Activity

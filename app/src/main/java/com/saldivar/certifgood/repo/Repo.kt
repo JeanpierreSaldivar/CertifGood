@@ -3,7 +3,7 @@ package com.saldivar.certifgood.repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.saldivar.certifgood.CredentialesLogin
+import com.saldivar.certifgood.utils.CredentialesLogin
 
 class Repo {
     val dbFirestore = FirebaseFirestore.getInstance()
@@ -24,7 +24,7 @@ class Repo {
 
     fun consultaActividadUser():LiveData<String>{
         val mutableResponse = MutableLiveData<String>()
-        dbFirestore.collection("USUARIOS").whereEqualTo("user",CredentialesLogin.usuario).
+        dbFirestore.collection("USUARIOS").whereEqualTo("user", CredentialesLogin.usuario).
         whereEqualTo("password", CredentialesLogin.password)
             .whereEqualTo("actividad_usuario",false).get().addOnSuccessListener {
                 mutableResponse.value = if(it.size() != 0){

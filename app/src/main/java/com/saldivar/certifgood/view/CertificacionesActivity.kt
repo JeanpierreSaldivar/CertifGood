@@ -1,8 +1,9 @@
-package com.saldivar.certifgood
+package com.saldivar.certifgood.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.saldivar.certifgood.R
 
 class CertificacionesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

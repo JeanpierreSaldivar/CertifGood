@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CertificacionesActivity"></activity>
+        <activity android:name=".view.CertificacionesActivity"></activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

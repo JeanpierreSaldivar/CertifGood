@@ -1,15 +1,16 @@
-package com.saldivar.certifgood
+package com.saldivar.certifgood.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.View.GONE
 import android.widget.ProgressBar
-import androidx.core.view.isGone
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.saldivar.certifgood.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
+import com.saldivar.certifgood.utils.CredentialesLogin
+import com.saldivar.certifgood.R
+import com.saldivar.certifgood.utils.ShowDialog
+import com.saldivar.certifgood.utils.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.permisolibrary.goneModalProgressSaldivar
 import com.saldivar.permisolibrary.showModalProgressSaldivar
@@ -38,7 +39,7 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
 
     override fun onClick(v: View) {
         when(v.id){
-            R.id.Siguientebtn->{
+            R.id.Siguientebtn ->{
 
                 if(CheckInternetConnection.validateInternetConnection(this@LoginActivity)){
                     deleteColorERROR()
@@ -46,7 +47,7 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
                     validateCampos()
                 }
                 else{
-                  ShowDialog.dialogShow("Compruebe su conexion a internet",this@LoginActivity)
+                    ShowDialog.dialogShow("Compruebe su conexion a internet", this@LoginActivity)
                 }
             }
         }
@@ -84,21 +85,26 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
                 "Usuario existe"->{
                     viewModel.getActividadUsuarioEncontrado().observe(this, Observer {actividad->
                         when(actividad){
-                            "Usuario activo"->ShowDialog.dialogShow("Este usuario esta dentro del sistema actualmente, " +
-                                    "intentelo mas tarde",this@LoginActivity)
+                            "Usuario activo"-> ShowDialog.dialogShow(
+                                "Ya hay un usuario logueado con esta cuenta",
+                                this@LoginActivity
+                            )
                             else->{
                                 viewModel.updateActividadUsuario(CredentialesLogin.id_documento).observe(this,
                                     Observer { actualizacion->
                                         when(actualizacion){
                                             true->nextActivity()
-                                            false->ShowDialog.dialogShow("Ocurrio un error inesperado",this@LoginActivity)
+                                            false-> ShowDialog.dialogShow(
+                                                "Ocurrio un error inesperado",
+                                                this@LoginActivity
+                                            )
                                         }
                                     })
                             }
                         }
                     })
                 }
-                else->ShowDialog.dialogShow("Usuario o contraseña incorrecta",this@LoginActivity)
+                else-> ShowDialog.dialogShow("Usuario o contraseña incorrecta", this@LoginActivity)
             }
         })
     }
