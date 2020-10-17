@@ -6,4 +6,5 @@
 
     <string name="text_error_conexion_internet">Revise su conexión a internet</string>
     <string name="text_aceptar">Aceptar</string>
+    <string name="text_cancelar">Cancelar</string>
 </resources>

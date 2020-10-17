@@ -13,6 +13,7 @@ import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.permisolibrary.goneModalProgressSaldivar
+import com.saldivar.permisolibrary.preferencesSaldivar
 import com.saldivar.permisolibrary.showModalProgressSaldivar
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -90,10 +91,19 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
                                 this@LoginActivity
                             )
                             else->{
-                                viewModel.updateActividadUsuario(CredentialesLogin.id_documento).observe(this,
+                                viewModel.updateActividadUsuario(CredentialesLogin.id_documento,true).observe(this,
                                     Observer { actualizacion->
                                         when(actualizacion){
-                                            true->nextActivity()
+                                            true->{
+                                                CredentialesLogin.actividad_user=true
+                                                val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
+                                                val pref =prefs.edit()
+                                                pref.putString("usuario",CredentialesLogin.usuario)
+                                                pref.putString("contraseña",CredentialesLogin.password)
+                                                pref.putString("id_documento",CredentialesLogin.id_documento)
+                                                pref.putBoolean("actividad_user",CredentialesLogin.actividad_user)
+                                                pref.apply()
+                                                nextActivity()}
                                             false-> ShowDialog.dialogShow(
                                                 "Ocurrio un error inesperado",
                                                 this@LoginActivity

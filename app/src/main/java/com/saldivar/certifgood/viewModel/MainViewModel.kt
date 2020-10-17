@@ -15,9 +15,9 @@ class MainViewModel: ViewModel() {
         return mutableResponse
     }
 
-    fun updateActividadUsuario(Document:String):LiveData<Boolean>{
+    fun updateActividadUsuario(Document:String,activacion:Boolean):LiveData<Boolean>{
         val mutableResponse = MutableLiveData<Boolean>()
-        repo.updateActividadUser(Document).observeForever{
+        repo.updateActividadUser(Document,activacion).observeForever{
             mutableResponse.value = it
         }
         return mutableResponse

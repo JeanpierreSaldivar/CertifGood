@@ -35,9 +35,9 @@ class Repo {
         }
         return mutableResponse
     }
-    fun updateActividadUser(idDocumento: String):LiveData<Boolean>{
+    fun updateActividadUser(idDocumento: String,activacion:Boolean):LiveData<Boolean>{
         val mutableResponse = MutableLiveData<Boolean>()
-        dbFirestore.collection("USUARIOS").document(idDocumento).update("actividad_usuario",true)
+        dbFirestore.collection("USUARIOS").document(idDocumento).update("actividad_usuario",activacion)
             .addOnSuccessListener {
                 mutableResponse.value = true
             }.addOnFailureListener {
