@@ -6,8 +6,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.view.CertificacionesActivity
+import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.permisolibrary.preferencesSaldivar
 
 object ShowDialog {
 
@@ -59,8 +63,23 @@ object ShowDialog {
         optionAccept.setOnClickListener{
             when (context) {
                 is CertificacionesActivity -> {
-                    val certi = CertificacionesActivity()
-                    certi.desactivarActividadUser()
+                    val prefs = preferencesSaldivar(context,0,"Datos_Usuario")
+                    val pref = prefs.edit()
+                    ViewModelProvider(context).get(MainViewModel::class.java).updateActividadUsuario(prefs.getString("id_documento",CredentialesLogin.id_documento)!!,false).observe(context,
+                        Observer {
+                            when(it){
+                                true->{
+                                    pref.putBoolean("actividad_user",false)
+                                    pref.apply()
+                                    val ss = CertificacionesActivity()
+                                    ss.backLoginActivity(context)
+                                }
+                                false-> dialogShow(
+                                    "Ocurrio un error inesperado",
+                                    context
+                                )
+                            }
+                        })
                 }
                 else -> mAlertDialog.dismiss()
             }
