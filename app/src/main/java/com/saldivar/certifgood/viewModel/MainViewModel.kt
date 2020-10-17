@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.saldivar.certifgood.repo.Repo
+import com.saldivar.certifgood.repo.objetos.Certificacion
 
 class MainViewModel: ViewModel() {
     private val repo= Repo()
@@ -26,6 +27,14 @@ class MainViewModel: ViewModel() {
         val mutableResponse =MutableLiveData<String>()
         repo.getCredenciales().observeForever{
             mutableResponse.value=it
+        }
+        return mutableResponse
+    }
+
+    fun getListCertificaciones():LiveData<MutableList<Certificacion>>{
+        val  mutableResponse = MutableLiveData<MutableList<Certificacion>>()
+        repo.getCertificacionesList().observeForever{
+            mutableResponse.value= it
         }
         return mutableResponse
     }

@@ -7,4 +7,6 @@
     <string name="text_error_conexion_internet">Revise su conexión a internet</string>
     <string name="text_aceptar">Aceptar</string>
     <string name="text_cancelar">Cancelar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

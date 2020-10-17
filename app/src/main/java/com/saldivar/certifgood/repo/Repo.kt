@@ -3,6 +3,7 @@ package com.saldivar.certifgood.repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.saldivar.certifgood.repo.objetos.Certificacion
 import com.saldivar.certifgood.utils.CredentialesLogin
 
 class Repo {
@@ -43,6 +44,21 @@ class Repo {
             }.addOnFailureListener {
                 mutableResponse.value= false
             }
+        return mutableResponse
+    }
+
+    fun getCertificacionesList():LiveData<MutableList<Certificacion>>{
+        val mutableResponse = MutableLiveData<MutableList<Certificacion>>()
+        dbFirestore.collection("CERTIFICACIONES").get().addOnSuccessListener {
+            val listaCertificaciones = mutableListOf<Certificacion>()
+            for (document in it){
+                val cantidadPreguntas = document.getString("cantidad_preguntas")
+                val nombre = document.getString("nombre")
+                val certificacion = Certificacion(cantidadPreguntas!!.toInt(),nombre!!)
+                listaCertificaciones.add(certificacion)
+            }
+            mutableResponse.value = listaCertificaciones
+        }
         return mutableResponse
     }
 }
