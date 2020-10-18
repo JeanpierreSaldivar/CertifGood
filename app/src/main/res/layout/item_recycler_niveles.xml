@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_certificacion"
+    android:id="@+id/item_niveles"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="15dp"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/texto_certificacion"
+            android:id="@+id/texto_niveles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Certificacion Cisco CCNA"

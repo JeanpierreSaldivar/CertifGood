@@ -54,7 +54,8 @@ class Repo {
             for (document in it){
                 val cantidadPreguntas = document.getString("cantidad_preguntas")
                 val nombre = document.getString("nombre")
-                val certificacion = Certificacion(cantidadPreguntas!!.toInt(),nombre!!)
+                val niveles = document.getString("cantidad_niveles")
+                val certificacion = Certificacion(cantidadPreguntas!!.toInt(),nombre!!,niveles!!.toInt())
                 listaCertificaciones.add(certificacion)
             }
             mutableResponse.value = listaCertificaciones

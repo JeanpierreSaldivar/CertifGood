@@ -11,7 +11,7 @@ import com.saldivar.certifgood.utils.CertificacionO
 import com.saldivar.certifgood.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.item_recycler_certificaciones.view.*
 
-class CertificacionAdapter(private val context:Context):RecyclerView.Adapter<CertificacionAdapter.MainViewHolder>() {
+class CertificacionAdapter(private val context:Context,private val listener:ListenerCertificacionesAdapter):RecyclerView.Adapter<CertificacionAdapter.MainViewHolder>() {
     private var dataList = mutableListOf<Certificacion>()
     fun setListData(data:MutableList<Certificacion>){
         dataList = data
@@ -26,18 +26,15 @@ class CertificacionAdapter(private val context:Context):RecyclerView.Adapter<Cer
 
     override fun onBindViewHolder(holder: CertificacionAdapter.MainViewHolder, position: Int) {
         val certificacion = dataList[position]
-        holder.bin(certificacion)
+        holder.bin(certificacion,listener)
     }
 
-    override fun getItemCount(): Int {
-        return if (dataList.size>0){
-            dataList.size
-        }else{0}
-    }
+    override fun getItemCount(): Int =dataList.size
 
     class MainViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        fun bin(certificacion: Certificacion)= with(itemView){
+        fun bin(certificacion: Certificacion,listener: ListenerCertificacionesAdapter)= with(itemView){
             texto_certificacion.text = "Certificación ${certificacion.nombre}"
+            item_certificacion.setOnClickListener { listener.onClick(certificacion,adapterPosition) }
         }
     }
 }
