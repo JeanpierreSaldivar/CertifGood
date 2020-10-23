@@ -33,15 +33,18 @@ class ChronometerFragment : Fragment() {
     }
 
     private fun onChronometer() {
-        val format=SimpleDateFormat("hh:mm:ss", Locale.getDefault())
-        val tiempoExamen ="00:01:00"
-        val time = format.parse(tiempoExamen)!!.time
+        val tiempoExamen = "60000"
+        val time = tiempoExamen.toLong()
         cronometroView = object : CountDownTimer(time,1000){
             override fun onTick(millisUntilFinished: Long) {
                 var diff = millisUntilFinished
                 val secondsInMilli: Long = 1000
                 val minutesInMilli = secondsInMilli * 60
                 val hoursInMilli = minutesInMilli * 60
+                val daysInMilli = hoursInMilli * 24
+
+                val elapsedDays = diff / daysInMilli
+                diff %= daysInMilli
 
                 val elapsedHours = diff / hoursInMilli
                 diff %= hoursInMilli
@@ -51,22 +54,28 @@ class ChronometerFragment : Fragment() {
 
                 val elapsedSeconds = diff / secondsInMilli
 
-                if (elapsedHours>0){
-                    chronometerText.text = "$elapsedHours:$elapsedMinutes:$elapsedSeconds"
-                }else{
-                    chronometerText.text = "$elapsedMinutes:$elapsedSeconds"
+                when{
+                    elapsedHours>0.toLong()->chronometerText.text = "$elapsedHours:$elapsedMinutes:$elapsedSeconds"
+                    elapsedMinutes<10.toLong() && elapsedSeconds<10.toLong() -> chronometerText.text = "0$elapsedMinutes:0$elapsedSeconds"
+                    elapsedMinutes<10.toLong()->chronometerText.text = "0$elapsedMinutes:$elapsedSeconds"
+                    elapsedMinutes>=10.toLong()->chronometerText.text = "$elapsedMinutes:$elapsedSeconds"
+                    elapsedSeconds<10.toLong()->chronometerText.text = "$elapsedMinutes:0$elapsedSeconds"
+                    elapsedSeconds>=10.toLong()->chronometerText.text = "$elapsedMinutes:$elapsedSeconds"
+
                 }
+
             }
 
             override fun onFinish() {
                 backActivity()
             }
 
-        }
+        }.start()
     }
 
     private fun backActivity() {
-        QuestionsActivity().apply {
+        val activity = this.activity!!
+        activity.apply {
             startActivity(Intent(this, CertificationsActivity::class.java))
             overridePendingTransition(R.anim.right_in, R.anim.right_out)
             finish()

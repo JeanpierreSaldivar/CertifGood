@@ -59,9 +59,10 @@ class LevelsFragment : Fragment() {
     }
 
     private fun nextActivity() {
-        CertificationsActivity().apply {
+        val activity = this.activity!!
+        activity.apply {
             startActivity(Intent(this, QuestionsActivity::class.java))
-            overridePendingTransition(R.anim.right_in, R.anim.right_out)
+            overridePendingTransition(R.anim.left_in, R.anim.left_out)
             finish()
         }
     }
