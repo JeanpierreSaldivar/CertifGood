@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
-import com.saldivar.certifgood.view.activitys.CertificacionesActivity
+import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.permisolibrary.preferencesSaldivar
 
@@ -62,16 +62,16 @@ object ShowDialog {
         body.text = message
         optionAccept.setOnClickListener{
             when (context) {
-                is CertificacionesActivity -> {
+                is CertificationsActivity -> {
                     val prefs = preferencesSaldivar(context,0,"Datos_Usuario")
                     val pref = prefs.edit()
-                    ViewModelProvider(context).get(MainViewModel::class.java).updateActividadUsuario(prefs.getString("id_documento",CredentialesLogin.id_documento)!!,false).observe(context,
+                    ViewModelProvider(context).get(MainViewModel::class.java).updateActividadUsuario(prefs.getString("id_documento",CredentialsLogin.id_documento)!!,false).observe(context,
                         Observer {
                             when(it){
                                 true->{
                                     pref.putBoolean("actividad_user",false)
                                     pref.apply()
-                                    val ss = CertificacionesActivity()
+                                    val ss = CertificationsActivity()
                                     ss.backLoginActivity(context)
                                 }
                                 false-> dialogShow(

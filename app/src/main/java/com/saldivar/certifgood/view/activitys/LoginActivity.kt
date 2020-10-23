@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.saldivar.certifgood.utils.CredentialesLogin
+import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
         }
     }
 
-    private fun guardarCredentiales()=with(CredentialesLogin) {
+    private fun guardarCredentiales()=with(CredentialsLogin) {
         usuario = idName
         password = contrasenia
         buscarUsuarioFirebase()
@@ -91,17 +91,17 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
                                 this@LoginActivity
                             )
                             else->{
-                                viewModel.updateActividadUsuario(CredentialesLogin.id_documento,true).observe(this,
+                                viewModel.updateActividadUsuario(CredentialsLogin.id_documento,true).observe(this,
                                     Observer { actualizacion->
                                         when(actualizacion){
                                             true->{
-                                                CredentialesLogin.actividad_user=true
+                                                CredentialsLogin.actividad_user=true
                                                 val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
                                                 val pref =prefs.edit()
-                                                pref.putString("usuario",CredentialesLogin.usuario)
-                                                pref.putString("contraseña",CredentialesLogin.password)
-                                                pref.putString("id_documento",CredentialesLogin.id_documento)
-                                                pref.putBoolean("actividad_user",CredentialesLogin.actividad_user)
+                                                pref.putString("usuario",CredentialsLogin.usuario)
+                                                pref.putString("contraseña",CredentialsLogin.password)
+                                                pref.putString("id_documento",CredentialsLogin.id_documento)
+                                                pref.putBoolean("actividad_user",CredentialsLogin.actividad_user)
                                                 pref.apply()
                                                 nextActivity()}
                                             false-> ShowDialog.dialogShow(
@@ -120,7 +120,7 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
     }
 
     private fun nextActivity(){
-        startActivity(Intent(this, CertificacionesActivity::class.java))
+        startActivity(Intent(this, CertificationsActivity::class.java))
         overridePendingTransition(R.anim.left_in, R.anim.left_out)
         finish()
     }

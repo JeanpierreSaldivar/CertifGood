@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun nextCertificacionesActivity(){
-        startActivity(Intent(this, CertificacionesActivity::class.java))
+        startActivity(Intent(this, CertificationsActivity::class.java))
         overridePendingTransition(R.anim.left_in, R.anim.left_out)
         finish()
     }

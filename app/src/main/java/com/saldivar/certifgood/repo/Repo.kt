@@ -3,18 +3,18 @@ package com.saldivar.certifgood.repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.saldivar.certifgood.repo.objetos.Certificacion
-import com.saldivar.certifgood.utils.CredentialesLogin
+import com.saldivar.certifgood.repo.objetos.Certification
+import com.saldivar.certifgood.utils.CredentialsLogin
 
 class Repo {
     val dbFirestore = FirebaseFirestore.getInstance()
     fun getCredenciales():LiveData<String>{
         val mutableResponse = MutableLiveData<String>()
-        dbFirestore.collection("USUARIOS").whereEqualTo("user", CredentialesLogin.usuario)
-            .whereEqualTo("password", CredentialesLogin.password).get().addOnSuccessListener {
+        dbFirestore.collection("USUARIOS").whereEqualTo("user", CredentialsLogin.usuario)
+            .whereEqualTo("password", CredentialsLogin.password).get().addOnSuccessListener {
                 if(it.size() != 0){
                     mutableResponse.value ="Usuario existe"
-                    CredentialesLogin.id_documento = it.documents[0].id
+                    CredentialsLogin.id_documento = it.documents[0].id
                 }else{
                     mutableResponse.value = "No existe Usuario"
                 }
@@ -25,8 +25,8 @@ class Repo {
 
     fun consultaActividadUser():LiveData<String>{
         val mutableResponse = MutableLiveData<String>()
-        dbFirestore.collection("USUARIOS").whereEqualTo("user", CredentialesLogin.usuario).
-        whereEqualTo("password", CredentialesLogin.password)
+        dbFirestore.collection("USUARIOS").whereEqualTo("user", CredentialsLogin.usuario).
+        whereEqualTo("password", CredentialsLogin.password)
             .whereEqualTo("actividad_usuario",false).get().addOnSuccessListener {
                 mutableResponse.value = if(it.size() != 0){
                     "Usuario inactivo"
@@ -47,15 +47,15 @@ class Repo {
         return mutableResponse
     }
 
-    fun getCertificacionesList():LiveData<MutableList<Certificacion>>{
-        val mutableResponse = MutableLiveData<MutableList<Certificacion>>()
+    fun getCertificacionesList():LiveData<MutableList<Certification>>{
+        val mutableResponse = MutableLiveData<MutableList<Certification>>()
         dbFirestore.collection("CERTIFICACIONES").get().addOnSuccessListener {
-            val listaCertificaciones = mutableListOf<Certificacion>()
+            val listaCertificaciones = mutableListOf<Certification>()
             for (document in it){
                 val cantidadPreguntas = document.getString("cantidad_preguntas")
                 val nombre = document.getString("nombre")
                 val niveles = document.getString("cantidad_niveles")
-                val certificacion = Certificacion(cantidadPreguntas!!.toInt(),nombre!!,niveles!!.toInt())
+                val certificacion = Certification(cantidadPreguntas!!.toInt(),nombre!!,niveles!!.toInt())
                 listaCertificaciones.add(certificacion)
             }
             mutableResponse.value = listaCertificaciones

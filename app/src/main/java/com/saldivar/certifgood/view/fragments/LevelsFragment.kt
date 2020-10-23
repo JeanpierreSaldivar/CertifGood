@@ -1,31 +1,26 @@
 package com.saldivar.certifgood.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saldivar.certifgood.R
-import com.saldivar.certifgood.repo.objetos.Certificacion
-import com.saldivar.certifgood.utils.CertificacionO
 import com.saldivar.certifgood.utils.SwitchFragment
-import com.saldivar.certifgood.view.activitys.CertificacionesActivity
-import com.saldivar.certifgood.view.adapter.CertificacionAdapter
-import com.saldivar.certifgood.view.adapter.ListenerCertificacionesAdapter
-import com.saldivar.certifgood.view.adapter.ListenerNivelesAdapter
-import com.saldivar.certifgood.view.adapter.NivelesAdapter
-import com.saldivar.certifgood.viewModel.MainViewModel
-import kotlinx.android.synthetic.main.fragment_list_certificaciones.view.*
+import com.saldivar.certifgood.view.activitys.CertificationsActivity
+import com.saldivar.certifgood.view.activitys.QuestionsActivity
+import com.saldivar.certifgood.view.adapter.ListenerLevelsAdapter
+import com.saldivar.certifgood.view.adapter.LevelsAdapter
 import kotlinx.android.synthetic.main.fragment_niveles.view.*
 
-class NivelesFragment : Fragment() {
+class LevelsFragment : Fragment() {
     private lateinit var recycler: RecyclerView
-    private lateinit var adapter: NivelesAdapter
+    private lateinit var adapter: LevelsAdapter
     private val layoutManager by lazy { LinearLayoutManager(context,
         LinearLayoutManager.VERTICAL,false)
     }
@@ -43,17 +38,17 @@ class NivelesFragment : Fragment() {
         return rootview
     }
     companion object {
-        fun newInstance(): NivelesFragment = NivelesFragment()
+        fun newInstance(): LevelsFragment = LevelsFragment()
     }
 
     private fun observeData() {
         recycler.setHasFixedSize(true)
         recycler.itemAnimator = DefaultItemAnimator()
         recycler.layoutManager = layoutManager
-        adapter= NivelesAdapter(this.requireContext(),object :
-            ListenerNivelesAdapter {
+        adapter= LevelsAdapter(this.requireContext(),object :
+            ListenerLevelsAdapter {
             override fun onClick(flight: Int, position: Int) {
-                Log.d("kkkk","$position")
+                nextActivity()
             }
 
         })
@@ -61,6 +56,14 @@ class NivelesFragment : Fragment() {
         adapter.setListData()
         adapter.notifyDataSetChanged()
 
+    }
+
+    private fun nextActivity() {
+        CertificationsActivity().apply {
+            startActivity(Intent(this, QuestionsActivity::class.java))
+            overridePendingTransition(R.anim.right_in, R.anim.right_out)
+            finish()
+        }
     }
 
 

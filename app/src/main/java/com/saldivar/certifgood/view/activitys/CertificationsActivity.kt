@@ -5,30 +5,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
-import com.saldivar.certifgood.view.fragments.ListCertificacionesFragment
-import com.saldivar.certifgood.view.fragments.NivelesFragment
-import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.certifgood.view.fragments.ListCertificationsFragment
 import kotlinx.android.synthetic.main.activity_certificaciones.*
 
-class CertificacionesActivity : AppCompatActivity(), View.OnClickListener{
+class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_certificaciones)
         supportActionBar?.hide()
         ui()
-        openFragment(ListCertificacionesFragment.newInstance())
+        openFragment(ListCertificationsFragment.newInstance())
 
     }
 
     private fun ui() {
-        back_flecha.setOnClickListener(this@CertificacionesActivity)
+        back_flecha.setOnClickListener(this@CertificationsActivity)
     }
 
-    private fun openFragment(fragment: ListCertificacionesFragment){
+    private fun openFragment(fragment: ListCertificationsFragment){
       supportFragmentManager.beginTransaction().apply {
                     replace(R.id.container_fragment_certificaciones,fragment)
                     setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -42,15 +39,15 @@ class CertificacionesActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun consultarFragmentMostreado() {
         if (SwitchFragment.numeroFragmentMostrado==2){
-            openFragment(ListCertificacionesFragment.newInstance())
+            openFragment(ListCertificationsFragment.newInstance())
         }
         else{
-            ShowDialog.dialogShowOptions("¿Desea cerrar la sesion?",this@CertificacionesActivity)
+            ShowDialog.dialogShowOptions("¿Desea cerrar la sesion?",this@CertificationsActivity)
         }
     }
 
 
-    internal fun backLoginActivity(context: CertificacionesActivity) {
+    internal fun backLoginActivity(context: CertificationsActivity) {
          context.apply {
              startActivity(Intent(context, LoginActivity::class.java))
              overridePendingTransition(R.anim.right_in, R.anim.right_out)

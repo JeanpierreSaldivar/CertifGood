@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saldivar.certifgood.R
-import com.saldivar.certifgood.repo.objetos.Certificacion
-import com.saldivar.certifgood.utils.CertificacionO
+import com.saldivar.certifgood.repo.objetos.Certification
+import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.SwitchFragment
 import com.saldivar.certifgood.view.adapter.CertificacionAdapter
-import com.saldivar.certifgood.view.adapter.ListenerCertificacionesAdapter
+import com.saldivar.certifgood.view.adapter.ListenerCertificationsAdapter
 import com.saldivar.certifgood.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_list_certificaciones.view.*
 
-class ListCertificacionesFragment : Fragment() {
+class ListCertificationsFragment : Fragment() {
     private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: CertificacionAdapter
@@ -40,18 +40,18 @@ class ListCertificacionesFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): ListCertificacionesFragment = ListCertificacionesFragment()
+        fun newInstance(): ListCertificationsFragment = ListCertificationsFragment()
     }
 
     private fun observeData() {
             viewModel.getListCertificaciones().observe(this.viewLifecycleOwner, Observer {
-                val list :MutableList<Certificacion> = it
+                val list :MutableList<Certification> = it
                 recycler.setHasFixedSize(true)
                 recycler.itemAnimator = DefaultItemAnimator()
                 recycler.layoutManager = layoutManager
                 adapter= CertificacionAdapter(this.requireContext(),object :
-                ListenerCertificacionesAdapter{
-                    override fun onClick(flight: Certificacion, position: Int) {
+                ListenerCertificationsAdapter{
+                    override fun onClick(flight: Certification, position: Int) {
                         setearValores(flight,position,list)
                     }
 
@@ -63,19 +63,19 @@ class ListCertificacionesFragment : Fragment() {
     }
 
     private fun setearValores(
-        flight: Certificacion,
+        flight: Certification,
         position: Int,
-        list: MutableList<Certificacion>
+        list: MutableList<Certification>
     ) {
         with(flight){
             list[position].apply {
-                CertificacionO.nombreCertificacion=nombre
-                CertificacionO.cantidadPreguntas=cantidad_preguntas
-                CertificacionO.niveles=niveles
+                CertificationObject.nombreCertificacion=nombre
+                CertificationObject.cantidadPreguntas=cantidad_preguntas
+                CertificationObject.niveles=niveles
             }
         }
         this.activity!!.supportFragmentManager.beginTransaction().apply{
-            replace(R.id.container_fragment_certificaciones,NivelesFragment.newInstance())
+            replace(R.id.container_fragment_certificaciones,LevelsFragment.newInstance())
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             addToBackStack(null)
             commit()

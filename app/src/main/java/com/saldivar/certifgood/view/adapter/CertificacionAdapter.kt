@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.saldivar.certifgood.R
-import com.saldivar.certifgood.repo.objetos.Certificacion
-import com.saldivar.certifgood.utils.CertificacionO
-import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.certifgood.repo.objetos.Certification
 import kotlinx.android.synthetic.main.item_recycler_certificaciones.view.*
 
-class CertificacionAdapter(private val context:Context,private val listener:ListenerCertificacionesAdapter):RecyclerView.Adapter<CertificacionAdapter.MainViewHolder>() {
-    private var dataList = mutableListOf<Certificacion>()
-    fun setListData(data:MutableList<Certificacion>){
+class CertificacionAdapter(private val context:Context,private val listener:ListenerCertificationsAdapter):RecyclerView.Adapter<CertificacionAdapter.MainViewHolder>() {
+    private var dataList = mutableListOf<Certification>()
+    fun setListData(data:MutableList<Certification>){
         dataList = data
     }
     override fun onCreateViewHolder(
@@ -32,7 +30,7 @@ class CertificacionAdapter(private val context:Context,private val listener:List
     override fun getItemCount(): Int =dataList.size
 
     class MainViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        fun bin(certificacion: Certificacion,listener: ListenerCertificacionesAdapter)= with(itemView){
+        fun bin(certificacion: Certification, listener: ListenerCertificationsAdapter)= with(itemView){
             texto_certificacion.text = "Certificación ${certificacion.nombre}"
             item_certificacion.setOnClickListener { listener.onClick(certificacion,adapterPosition) }
         }
