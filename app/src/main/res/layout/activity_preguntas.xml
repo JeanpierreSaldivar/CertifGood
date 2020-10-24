@@ -9,7 +9,7 @@
     <FrameLayout
         android:id="@+id/containerCronometro"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,12 +22,13 @@
         app:layout_constraintBottom_toTopOf="@+id/containerAnswer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerCronometro" />
+        app:layout_constraintTop_toBottomOf="@+id/containerCronometro">
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/containerAnswer"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
