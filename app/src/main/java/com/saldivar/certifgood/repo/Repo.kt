@@ -53,9 +53,15 @@ class Repo {
             val listaCertificaciones = mutableListOf<Certification>()
             for (document in it){
                 val cantidadPreguntas = document.getString("cantidad_preguntas")
+                val cantidadPreguntasEvaluar = document.getString("cantidad_preguntas_evaluar")
                 val nombre = document.getString("nombre")
                 val niveles = document.getString("cantidad_niveles")
-                val certificacion = Certification(cantidadPreguntas!!.toInt(),nombre!!,niveles!!.toInt())
+                val pruebaHoras = document.getString("tiempo_prueba_horas")
+                val pruebaMinutos = document.getString("tiempo_prueba_minutos")
+                val pruebaSegundos = document.getString("tiempo_prueba_segundos")
+                val certificacion = Certification(cantidadPreguntas!!.toInt(),
+                    cantidadPreguntasEvaluar!!.toInt(),nombre!!,niveles!!.toInt(),pruebaHoras!!.toInt(),
+                pruebaMinutos!!.toInt(),pruebaSegundos!!.toInt())
                 listaCertificaciones.add(certificacion)
             }
             mutableResponse.value = listaCertificaciones

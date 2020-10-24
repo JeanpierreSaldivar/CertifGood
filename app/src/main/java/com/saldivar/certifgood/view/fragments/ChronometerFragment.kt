@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.saldivar.certifgood.R
+import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import kotlinx.android.synthetic.main.fragment_chronometer.*
@@ -33,7 +34,7 @@ class ChronometerFragment : Fragment() {
     }
 
     private fun onChronometer() {
-        val tiempoExamen = "60000"
+        val tiempoExamen = CertificationObject.tiempoPrueba
         val time = tiempoExamen.toLong()
         cronometroView = object : CountDownTimer(time,1000){
             override fun onTick(millisUntilFinished: Long) {

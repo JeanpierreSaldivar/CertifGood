@@ -71,7 +71,11 @@ class ListCertificationsFragment : Fragment() {
             list[position].apply {
                 CertificationObject.nombreCertificacion=nombre
                 CertificationObject.cantidadPreguntas=cantidad_preguntas
+                CertificationObject.cantidadPreguntasEvaluar =cantidad_preguntas_evaluar
                 CertificationObject.niveles=niveles
+                val tiempoPrueba = (tiempo_prueba_horas*60*60*1000)+(tiempo_prueba_minutos*60*1000)+tiempo_prueba_segundos*1000
+                CertificationObject.tiempoPrueba = tiempoPrueba
+
             }
         }
         this.activity!!.supportFragmentManager.beginTransaction().apply{
