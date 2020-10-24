@@ -6,12 +6,18 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isInvisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
+import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.permisolibrary.preferencesSaldivar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 object ShowDialog {
 
@@ -40,15 +46,29 @@ object ShowDialog {
 
     private fun showDialogConnection(message: String, mDialogView: View, context: Context){
         val mBuilder = AlertDialog.Builder(context).setView(mDialogView)
-        val  mAlertDialog = mBuilder.create()
-        val optionAccept =  mDialogView.findViewById(R.id.boton_aceptar) as Button
+        val mAlertDialog = mBuilder.create()
+        val optionAccept = mDialogView.findViewById(R.id.boton_aceptar) as Button
         mAlertDialog.show()
         mAlertDialog.window?.setBackgroundDrawable(null)
         val body = mDialogView.findViewById(R.id.texto_alert) as TextView
         body.text = message
-        optionAccept.setOnClickListener{
-            mAlertDialog.dismiss()
+        when (context) {
+            is QuestionsActivity -> {
+                CoroutineScope(Dispatchers.IO).launch{
+                    optionAccept.visibility = View.GONE
+
+                    delay(4000)
+                    mAlertDialog.dismiss()
+                    context.backActivity(context)
+                }
+            }
+            else -> {
+                optionAccept.setOnClickListener{
+                    mAlertDialog.dismiss()
+                }
+            }
         }
+
     }
 
     private fun showDialogOptions(message: String, mDialogView: View, context: Context){

@@ -9,9 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.utils.CertificationObject
+import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import kotlinx.android.synthetic.main.fragment_chronometer.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -68,20 +72,19 @@ class ChronometerFragment : Fragment() {
             }
 
             override fun onFinish() {
-                backActivity()
+                mostrarDialogo()
             }
 
         }.start()
     }
 
-    private fun backActivity() {
-        val activity = this.activity!!
-        activity.apply {
-            startActivity(Intent(this, CertificationsActivity::class.java))
-            overridePendingTransition(R.anim.right_in, R.anim.right_out)
-            finish()
-        }
+    private fun mostrarDialogo() {
+            ShowDialog.dialogShow("Lo sentimos, el tiempo de la prueba a culminado",this.activity!!)
+
+
     }
+
+
 
 
 }

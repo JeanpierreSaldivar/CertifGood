@@ -1,5 +1,6 @@
 package com.saldivar.certifgood.view.activitys
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,14 @@ class QuestionsActivity : AppCompatActivity() {
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             addToBackStack(null)
             commit()}
+    }
+
+    internal fun backActivity(context: Context){
+        context.apply {
+            startActivity(Intent(this, CertificationsActivity::class.java))
+            overridePendingTransition(R.anim.right_in, R.anim.right_out)
+            finish()
+        }
     }
 
 }
