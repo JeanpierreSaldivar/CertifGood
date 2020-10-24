@@ -6,4 +6,6 @@ object CertificationObject {
     var cantidadPreguntasEvaluar:Int = 0
     var niveles:Int =0
     var tiempoPrueba: Int = 0
+
+    var nivelElegido:String = ""
 }

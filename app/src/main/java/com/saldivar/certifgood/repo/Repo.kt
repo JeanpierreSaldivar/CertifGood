@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.saldivar.certifgood.repo.objetos.Certification
+import com.saldivar.certifgood.repo.objetos.Question
+import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.CredentialsLogin
 
 class Repo {
@@ -65,6 +67,33 @@ class Repo {
                 listaCertificaciones.add(certificacion)
             }
             mutableResponse.value = listaCertificaciones
+        }
+        return mutableResponse
+    }
+
+    fun getListQuestions(idPregunta :String):LiveData<MutableList<Question>>{
+        val mutableResponse = MutableLiveData<MutableList<Question>>()
+        dbFirestore.collection("PREGUNTAS").
+        whereEqualTo("nombre",CertificationObject.nombreCertificacion).
+            whereEqualTo("nivel",CertificationObject.nivelElegido).
+        whereEqualTo("id_pregunta",idPregunta).
+        get().addOnSuccessListener {
+            val questionList = mutableListOf<Question>()
+            for(document in it){
+                val id_pregunta = document.getString("id_pregunta")!!
+                val nivel =document.getString("nivel")!!
+                val nombre = document.getString("nombre")!!
+                val pregunta = document.getString("pregunta")!!
+                val respuesta1 = document.getString("respuesta1")!!
+                val respuesta2 = document.getString("respuesta2")!!
+                val respuesta3 = document.getString("respuesta3")!!
+                val respuesta4 = document.getString("respuesta4")!!
+                val respuesta_correcta = document.getString("respuesta_correcta")!!
+                val question =Question(id_pregunta,nivel.toInt(),nombre, pregunta, respuesta1,
+                    respuesta2, respuesta3, respuesta4, respuesta_correcta)
+                questionList.add(question)
+            }
+            mutableResponse.value = questionList
         }
         return mutableResponse
     }

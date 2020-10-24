@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saldivar.certifgood.R
+import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.SwitchFragment
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.activitys.QuestionsActivity
@@ -48,6 +49,7 @@ class LevelsFragment : Fragment() {
         adapter= LevelsAdapter(this.requireContext(),object :
             ListenerLevelsAdapter {
             override fun onClick(flight: Int, position: Int) {
+                CertificationObject.nivelElegido = (position+1).toString()
                 nextActivity()
             }
 
