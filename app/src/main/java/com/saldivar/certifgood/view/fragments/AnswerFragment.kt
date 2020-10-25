@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import com.saldivar.certifgood.R
+import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.QuestionObject
 import com.saldivar.certifgood.utils.ShowDialog
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_answer.*
+import com.saldivar.certifgood.utils.SwitchFragment
+import kotlinx.android.synthetic.main.fragment_answer.view.*
 
 
 class AnswerFragment : Fragment(),View.OnClickListener {
@@ -21,15 +22,11 @@ class AnswerFragment : Fragment(),View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val rootview =inflater.inflate(R.layout.fragment_answer, container, false)
-        ui()
+        rootview.buttonA.setOnClickListener(this)
+        rootview.buttonB.setOnClickListener(this)
+        rootview.buttonC.setOnClickListener(this)
+        rootview.buttonD.setOnClickListener(this)
         return rootview
-    }
-
-    private fun ui() {
-        buttonA.setOnClickListener(this)
-        buttonB.setOnClickListener(this)
-        buttonC.setOnClickListener(this)
-        buttonD.setOnClickListener(this)
     }
 
     companion object {
@@ -40,8 +37,8 @@ class AnswerFragment : Fragment(),View.OnClickListener {
         when(v.id){
             R.id.buttonA->{
                 if(QuestionObject.respuesta_correcta=="respuesta1"){
-                    nextFragment()
                     QuestionObject.nota+=1
+                    nextFragment()
                 }
                 else{
                     nextFragment()
@@ -49,8 +46,8 @@ class AnswerFragment : Fragment(),View.OnClickListener {
             }
             R.id.buttonB->{
                 if(QuestionObject.respuesta_correcta=="respuesta2"){
-                    nextFragment()
                     QuestionObject.nota+=1
+                    nextFragment()
                 }
                 else{
                     nextFragment()
@@ -58,8 +55,8 @@ class AnswerFragment : Fragment(),View.OnClickListener {
             }
             R.id.buttonC->{
                 if(QuestionObject.respuesta_correcta=="respuesta3"){
-                    nextFragment()
                     QuestionObject.nota+=1
+                    nextFragment()
                 }
                 else{
                     nextFragment()
@@ -67,8 +64,9 @@ class AnswerFragment : Fragment(),View.OnClickListener {
             }
             R.id.buttonD->{
                 if(QuestionObject.respuesta_correcta=="respuesta4"){
-                    nextFragment()
                     QuestionObject.nota+=1
+                    nextFragment()
+
                 }
                 else{
                     nextFragment()
@@ -79,12 +77,23 @@ class AnswerFragment : Fragment(),View.OnClickListener {
 
     private fun nextFragment(){
         if (QuestionObject.listQuestionSize==1){
-            ShowDialog.dialogShow("Su nota es ${QuestionObject.nota}",this.activity!!)
+            SwitchFragment.detenerChronometer=1
+            val nota = QuestionObject.nota
+            val porcentajeAprobado = nota*100/CertificationObject.cantidadPreguntasEvaluar
+            if(porcentajeAprobado>=CertificationObject.porcentajeAprobar){
+                ShowDialog.dialogShowCalificacionBuena("Su nota es $nota con un porcentaje de $porcentajeAprobado% de respuestas correctas",
+                    this.activity!!)
+            }
+            else{
+                ShowDialog.dialogShowCalificacionMala("Su nota es $nota con un porcentaje de $porcentajeAprobado% de respuestas correctas",
+                    this.activity!!)
+            }
+        }else{
+            this.activity!!.supportFragmentManager.beginTransaction().apply{
+                replace(R.id.containerQuestion,ShowQuestionsFragment.newInstance())
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                addToBackStack(null)
+                commit()
         }
-        this.activity!!.supportFragmentManager.beginTransaction().apply{
-            replace(R.id.containerQuestion,LevelsFragment.newInstance())
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            addToBackStack(null)
-            commit()
     }}
 }

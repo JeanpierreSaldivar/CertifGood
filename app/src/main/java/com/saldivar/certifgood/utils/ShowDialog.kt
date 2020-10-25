@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.activitys.QuestionsActivity
+import com.saldivar.certifgood.view.fragments.ChronometerFragment
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.permisolibrary.preferencesSaldivar
+import kotlinx.android.synthetic.main.fragment_chronometer.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -22,6 +24,26 @@ import kotlinx.coroutines.launch
 object ShowDialog {
 
     private lateinit var dialogView:View
+
+    fun dialogShowCalificacionBuena(message: String, context: Context) {
+
+        dialogView = LayoutInflater.from(context).
+        inflate(
+            R.layout.alert_calificacion_buena,
+            null )
+
+        showDialogConnection(message, dialogView,context)
+    }
+
+    fun dialogShowCalificacionMala(message: String, context: Context) {
+
+        dialogView = LayoutInflater.from(context).
+        inflate(
+            R.layout.alert_calificacion_mala,
+            null )
+
+        showDialogConnection(message, dialogView,context)
+    }
 
     fun dialogShow(message: String, context: Context) {
 
@@ -56,10 +78,14 @@ object ShowDialog {
             is QuestionsActivity -> {
                 CoroutineScope(Dispatchers.IO).launch{
                     optionAccept.visibility = View.GONE
-
-                    delay(4000)
+                    delay(5000)
+                    QuestionObject.listQuestion!!.clear()
+                    QuestionObject.nota =0
+                    QuestionObject.listQuestionSize = 0
+                    QuestionObject.contador_pregunta =0
                     mAlertDialog.dismiss()
                     context.backActivity(context)
+
                 }
             }
             else -> {
@@ -82,6 +108,16 @@ object ShowDialog {
         body.text = message
         optionAccept.setOnClickListener{
             when (context) {
+                is QuestionsActivity->{
+                    CoroutineScope(Dispatchers.IO).launch{
+                        QuestionObject.listQuestion!!.clear()
+                        QuestionObject.nota =0
+                        QuestionObject.listQuestionSize = 0
+                        QuestionObject.contador_pregunta =0
+                        mAlertDialog.dismiss()
+                        context.backActivity(context)
+                    }
+                }
                 is CertificationsActivity -> {
                     val prefs = preferencesSaldivar(context,0,"Datos_Usuario")
                     val pref = prefs.edit()
@@ -107,6 +143,6 @@ object ShowDialog {
         }
         optionCancelar.setOnClickListener {
             mAlertDialog.dismiss()
-        }
+            SwitchFragment.detenerChronometer= 0}
     }
 }

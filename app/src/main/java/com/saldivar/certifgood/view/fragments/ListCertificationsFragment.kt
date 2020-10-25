@@ -75,6 +75,7 @@ class ListCertificationsFragment : Fragment() {
                 CertificationObject.niveles=niveles
                 val tiempoPrueba = (tiempo_prueba_horas*60*60*1000)+(tiempo_prueba_minutos*60*1000)+tiempo_prueba_segundos*1000
                 CertificationObject.tiempoPrueba = tiempoPrueba
+                CertificationObject.porcentajeAprobar = porcentaje_minimo_aprobar
 
             }
         }

@@ -8,4 +8,5 @@ data class Certification (
     val tiempo_prueba_horas: Int = 0,
     val tiempo_prueba_minutos: Int = 0,
     val tiempo_prueba_segundos: Int = 0,
+    val porcentaje_minimo_aprobar:Int =0,
 )

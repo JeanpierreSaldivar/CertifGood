@@ -61,9 +61,10 @@ class Repo {
                 val pruebaHoras = document.getString("tiempo_prueba_horas")
                 val pruebaMinutos = document.getString("tiempo_prueba_minutos")
                 val pruebaSegundos = document.getString("tiempo_prueba_segundos")
+                val porcentajeAprobar = document.getString("porcentaje_minimo_aprobar")
                 val certificacion = Certification(cantidadPreguntas!!.toInt(),
                     cantidadPreguntasEvaluar!!.toInt(),nombre!!,niveles!!.toInt(),pruebaHoras!!.toInt(),
-                pruebaMinutos!!.toInt(),pruebaSegundos!!.toInt())
+                pruebaMinutos!!.toInt(),pruebaSegundos!!.toInt(),porcentajeAprobar!!.toInt())
                 listaCertificaciones.add(certificacion)
             }
             mutableResponse.value = listaCertificaciones
