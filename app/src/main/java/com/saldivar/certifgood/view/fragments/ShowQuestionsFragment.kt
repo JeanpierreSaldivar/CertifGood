@@ -41,6 +41,7 @@ class ShowQuestionsFragment : Fragment() {
             textRespuesta3.text ="c. ${list[0].respuesta3}"
             textRespuesta4.text ="d. ${list[0].respuesta4}"
             QuestionObject.respuesta_correcta = list[0].respuesta_correcta
+            preguntaCard.visibility= View.VISIBLE
         })
     }
 
