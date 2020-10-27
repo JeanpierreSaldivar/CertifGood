@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.utils.CertificationObject
+import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import com.saldivar.certifgood.view.adapter.ListenerLevelsAdapter
 import com.saldivar.certifgood.view.adapter.LevelsAdapter
+import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.fragment_niveles.view.*
 
 class LevelsFragment : Fragment() {
@@ -62,11 +64,16 @@ class LevelsFragment : Fragment() {
 
     private fun nextActivity() {
         val activity = this.activity!!
-        activity.apply {
-            startActivity(Intent(this, QuestionsActivity::class.java))
-            overridePendingTransition(R.anim.left_in, R.anim.left_out)
-            finish()
+        if(CheckInternetConnection.validateInternetConnection(activity)){
+            activity.apply {
+                startActivity(Intent(this, QuestionsActivity::class.java))
+                overridePendingTransition(R.anim.left_in, R.anim.left_out)
+                finish()
+            }
+        }else{
+            ShowDialog.dialogShow("Compruebe su conexion a internet", activity)
         }
+
     }
 
 

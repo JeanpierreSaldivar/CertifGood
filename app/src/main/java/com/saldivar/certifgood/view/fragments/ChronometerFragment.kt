@@ -71,18 +71,13 @@ class ChronometerFragment : Fragment() {
                             elapsedMinutes>=10.toLong()->chronometerTextView.text = "$elapsedMinutes:$elapsedSeconds"
                             elapsedSeconds<10.toLong()->chronometerTextView.text = "$elapsedMinutes:0$elapsedSeconds"
                             elapsedSeconds>=10.toLong()->chronometerTextView.text = "$elapsedMinutes:$elapsedSeconds"
-
                         }
                     }
                 }
-
                 override fun onFinish() {
                     mostrarDialogo()
                 }
-
             }.start()
-
-
     }
 
     private fun mostrarDialogo() {

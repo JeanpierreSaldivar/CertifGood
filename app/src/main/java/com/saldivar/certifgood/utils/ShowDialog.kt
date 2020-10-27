@@ -72,20 +72,26 @@ object ShowDialog {
         val optionAccept = mDialogView.findViewById(R.id.boton_aceptar) as Button
         mAlertDialog.show()
         mAlertDialog.window?.setBackgroundDrawable(null)
+        mAlertDialog.setCanceledOnTouchOutside(false)
+        mAlertDialog.setCancelable(false)
         val body = mDialogView.findViewById(R.id.texto_alert) as TextView
         body.text = message
         when (context) {
             is QuestionsActivity -> {
-                CoroutineScope(Dispatchers.IO).launch{
-                    optionAccept.visibility = View.GONE
-                    delay(5000)
-                    QuestionObject.listQuestion!!.clear()
-                    QuestionObject.nota =0
-                    QuestionObject.listQuestionSize = 0
-                    QuestionObject.contador_pregunta =0
-                    mAlertDialog.dismiss()
-                    context.backActivity(context)
+                optionAccept.setOnClickListener {
+                    if(message=="Compruebe su conexion a internet"){
+                        mAlertDialog.dismiss()
+                    }else{
+                        CoroutineScope(Dispatchers.IO).launch{
+                            QuestionObject.listQuestion!!.clear()
+                            QuestionObject.nota =0
+                            QuestionObject.listQuestionSize = 0
+                            QuestionObject.contador_pregunta =0
+                            mAlertDialog.dismiss()
+                            context.backActivity(context)
 
+                        }
+                    }
                 }
             }
             else -> {
@@ -109,13 +115,17 @@ object ShowDialog {
         optionAccept.setOnClickListener{
             when (context) {
                 is QuestionsActivity->{
-                    CoroutineScope(Dispatchers.IO).launch{
-                        QuestionObject.listQuestion!!.clear()
-                        QuestionObject.nota =0
-                        QuestionObject.listQuestionSize = 0
-                        QuestionObject.contador_pregunta =0
+                    if(message=="Compruebe su conexion a internet"){
                         mAlertDialog.dismiss()
-                        context.backActivity(context)
+                    }else{
+                        CoroutineScope(Dispatchers.IO).launch{
+                            QuestionObject.listQuestion!!.clear()
+                            QuestionObject.nota =0
+                            QuestionObject.listQuestionSize = 0
+                            QuestionObject.contador_pregunta =0
+                            mAlertDialog.dismiss()
+                            context.backActivity(context)
+                        }
                     }
                 }
                 is CertificationsActivity -> {

@@ -51,11 +51,8 @@ class QuestionsActivity : AppCompatActivity() {
                     }
                 }
             }
-
             QuestionObject.listQuestion = listSelectionQuestions
             QuestionObject.listQuestionSize = listSelectionQuestions.size+1
-
-
     }
 
     private fun openFragmentChronometer(fragment: ChronometerFragment){

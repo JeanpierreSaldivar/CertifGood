@@ -9,6 +9,7 @@ import com.saldivar.certifgood.R
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
 import com.saldivar.certifgood.view.fragments.ListCertificationsFragment
+import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_certificaciones.*
 
 class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
@@ -38,11 +39,17 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun consultarFragmentMostreado() {
-        if (SwitchFragment.numeroFragmentMostrado==2){
-            openFragment(ListCertificationsFragment.newInstance())
-        }
-        else{
-            ShowDialog.dialogShowOptions("¿Desea cerrar la sesion?",this@CertificationsActivity)
+        if(CheckInternetConnection.validateInternetConnection(this@CertificationsActivity)) {
+            if (SwitchFragment.numeroFragmentMostrado == 2) {
+                openFragment(ListCertificationsFragment.newInstance())
+            } else {
+                ShowDialog.dialogShowOptions(
+                    "¿Desea cerrar la sesion?",
+                    this@CertificationsActivity
+                )
+            }
+        }else{
+            ShowDialog.dialogShow("Compruebe su conexion a internet", this@CertificationsActivity)
         }
     }
 
@@ -58,7 +65,7 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
 
     override fun onClick(v: View) {
         when(v.id){
-            R.id.back_flecha->{consultarFragmentMostreado()}
+            R.id.back_flecha->{ consultarFragmentMostreado() }
         }
     }
 }

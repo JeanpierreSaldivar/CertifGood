@@ -41,7 +41,6 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
     override fun onClick(v: View) {
         when(v.id){
             R.id.Siguientebtn ->{
-
                 if(CheckInternetConnection.validateInternetConnection(this@LoginActivity)){
                     deleteColorERROR()
                     captureDataEntered()
@@ -75,7 +74,12 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
     private fun guardarCredentiales()=with(CredentialsLogin) {
         usuario = idName
         password = contrasenia
-        buscarUsuarioFirebase()
+        if(CheckInternetConnection.validateInternetConnection(this@LoginActivity)){
+            buscarUsuarioFirebase()
+        }
+        else{
+            ShowDialog.dialogShow("Compruebe su conexion a internet", this@LoginActivity)
+        }
     }
 
     private fun buscarUsuarioFirebase() {

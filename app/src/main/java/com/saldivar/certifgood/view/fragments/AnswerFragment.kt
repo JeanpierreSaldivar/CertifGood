@@ -80,12 +80,18 @@ class AnswerFragment : Fragment(),View.OnClickListener {
             SwitchFragment.detenerChronometer=1
             val nota = QuestionObject.nota
             val porcentajeAprobado = nota*100/CertificationObject.cantidadPreguntasEvaluar
+            var notaString =""
+            notaString = if(nota<10){
+                "0$nota"
+            }else{
+                "$nota"
+            }
             if(porcentajeAprobado>=CertificationObject.porcentajeAprobar){
-                ShowDialog.dialogShowCalificacionBuena("Su nota es $nota con un porcentaje de $porcentajeAprobado% de respuestas correctas",
+                ShowDialog.dialogShowCalificacionBuena("Su nota es $notaString con un porcentaje de $porcentajeAprobado% de respuestas correctas",
                     this.activity!!)
             }
             else{
-                ShowDialog.dialogShowCalificacionMala("Su nota es $nota con un porcentaje de $porcentajeAprobado% de respuestas correctas",
+                ShowDialog.dialogShowCalificacionMala("Su nota es $notaString con un porcentaje de $porcentajeAprobado% de respuestas correctas",
                     this.activity!!)
             }
         }else{

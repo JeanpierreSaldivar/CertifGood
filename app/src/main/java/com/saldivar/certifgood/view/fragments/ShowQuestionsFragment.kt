@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.repo.objetos.Question
 import com.saldivar.certifgood.utils.QuestionObject
+import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.fragment_show_questions.*
 
 
@@ -28,21 +30,26 @@ class ShowQuestionsFragment : Fragment() {
     }
 
     private fun queryListQuestions() {
-        QuestionObject.listQuestionSize -= 1
-        val result = QuestionObject.listQuestion!![QuestionObject.listQuestionSize-1]
-        val valueList = result.toString()
-        viewModel.getQuestionsList(valueList).observe(this.viewLifecycleOwner, Observer {
-            val list:MutableList<Question> = it
-            QuestionObject.contador_pregunta+=1
-            val numero = QuestionObject.contador_pregunta
-            textPregunta.text = "$numero. ${list[0].pregunta}"
-            textRespuesta1.text ="a. ${list[0].respuesta1}"
-            textRespuesta2.text ="b. ${list[0].respuesta2}"
-            textRespuesta3.text ="c. ${list[0].respuesta3}"
-            textRespuesta4.text ="d. ${list[0].respuesta4}"
-            QuestionObject.respuesta_correcta = list[0].respuesta_correcta
-            preguntaCard.visibility= View.VISIBLE
-        })
+        if(CheckInternetConnection.validateInternetConnection(this.activity!!)){
+            QuestionObject.listQuestionSize -= 1
+            val result = QuestionObject.listQuestion!![QuestionObject.listQuestionSize-1]
+            val valueList = result.toString()
+            viewModel.getQuestionsList(valueList).observe(this.viewLifecycleOwner, Observer {
+                val list:MutableList<Question> = it
+                QuestionObject.contador_pregunta+=1
+                val numero = QuestionObject.contador_pregunta
+                textPregunta.text = "$numero. ${list[0].pregunta}"
+                textRespuesta1.text ="a. ${list[0].respuesta1}"
+                textRespuesta2.text ="b. ${list[0].respuesta2}"
+                textRespuesta3.text ="c. ${list[0].respuesta3}"
+                textRespuesta4.text ="d. ${list[0].respuesta4}"
+                QuestionObject.respuesta_correcta = list[0].respuesta_correcta
+                preguntaCard.visibility= View.VISIBLE
+            })
+        }
+        else{
+            ShowDialog.dialogShow("Compruebe su conexion a internet", this.activity!!)
+        }
     }
 
     companion object {

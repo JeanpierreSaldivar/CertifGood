@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.repo.objetos.Certification
 import com.saldivar.certifgood.utils.CertificationObject
+import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
 import com.saldivar.certifgood.view.adapter.CertificacionAdapter
 import com.saldivar.certifgood.view.adapter.ListenerCertificationsAdapter
 import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.fragment_list_certificaciones.view.*
 
 class ListCertificationsFragment : Fragment() {
@@ -44,13 +46,14 @@ class ListCertificationsFragment : Fragment() {
     }
 
     private fun observeData() {
+        if(CheckInternetConnection.validateInternetConnection(this.activity!!)){
             viewModel.getListCertificaciones().observe(this.viewLifecycleOwner, Observer {
                 val list :MutableList<Certification> = it
                 recycler.setHasFixedSize(true)
                 recycler.itemAnimator = DefaultItemAnimator()
                 recycler.layoutManager = layoutManager
                 adapter= CertificacionAdapter(this.requireContext(),object :
-                ListenerCertificationsAdapter{
+                    ListenerCertificationsAdapter{
                     override fun onClick(flight: Certification, position: Int) {
                         setearValores(flight,position,list)
                     }
@@ -60,6 +63,11 @@ class ListCertificationsFragment : Fragment() {
                 adapter.setListData(it)
                 adapter.notifyDataSetChanged()
             })
+        }
+        else{
+            ShowDialog.dialogShow("Compruebe su conexion a internet", this.activity!!)
+        }
+
     }
 
     private fun setearValores(
