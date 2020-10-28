@@ -47,4 +47,27 @@ class MainViewModel: ViewModel() {
         }
         return  mutableResponse
     }
+
+    fun queryImageNameUser(user:String):LiveData<String>{
+        val mutableResponse = MutableLiveData<String>()
+        repo.consultarNombreImagenUser(user).observeForever{
+            mutableResponse.value = it
+        }
+        return  mutableResponse
+    }
+
+    fun sizeHistorial(user:String):LiveData<Int>{
+        val mutableResponse = MutableLiveData<Int>()
+        repo.sizeHistorial(user).observeForever{
+            mutableResponse.value = it
+        }
+        return  mutableResponse
+    }
+    fun saveHistorial(imageUser:String,size:Int):LiveData<Boolean>{
+        val mutableResponse = MutableLiveData<Boolean>()
+        repo.saveHistorial(imageUser,size).observeForever{
+            mutableResponse.value = it
+        }
+        return mutableResponse
+    }
 }

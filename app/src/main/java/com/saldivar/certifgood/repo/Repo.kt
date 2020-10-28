@@ -1,5 +1,6 @@
 package com.saldivar.certifgood.repo
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
@@ -7,6 +8,10 @@ import com.saldivar.certifgood.repo.objetos.Certification
 import com.saldivar.certifgood.repo.objetos.Question
 import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.CredentialsLogin
+import com.saldivar.certifgood.utils.HistorialObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Repo {
     val dbFirestore = FirebaseFirestore.getInstance()
@@ -46,6 +51,44 @@ class Repo {
             }.addOnFailureListener {
                 mutableResponse.value= false
             }
+        return mutableResponse
+    }
+
+    fun consultarNombreImagenUser(user:String):LiveData<String>{
+        val mutableResponse = MutableLiveData<String>()
+        dbFirestore.collection("USUARIOS").whereEqualTo("user", user).get().addOnSuccessListener {
+            for (document in it){
+                val image = document.getString("image_user_url")!!
+                mutableResponse.value = image
+            }
+        }
+        return mutableResponse
+    }
+
+    fun  sizeHistorial(user:String):LiveData<Int>{
+        val mutableResponse = MutableLiveData<Int>()
+        dbFirestore.collection("HISTORIAL").whereEqualTo("usuario", user).get().addOnSuccessListener {
+            mutableResponse.value = it.size()
+        }
+        return mutableResponse
+    }
+    fun saveHistorial(imageUser:String,size:Int):LiveData<Boolean>{
+        val mutableResponse = MutableLiveData<Boolean>()
+        val data = hashMapOf(
+            "estado_examen" to HistorialObject.estado_examen,
+            "nombre_examen" to HistorialObject.nombre_examen,
+            "nota_examen" to HistorialObject.nota_examen,
+            "usuario" to HistorialObject.usuario,
+            "porcentaje_examen" to HistorialObject.porcentaje_examen,
+            "orden_historial_prueba" to size.toString(),
+            "orden_historial_int" to size,
+            "imagen_usuario" to imageUser
+        )
+        dbFirestore.collection("HISTORIAL").add(data).addOnSuccessListener {
+            mutableResponse.value = true
+        }.addOnFailureListener {
+            mutableResponse.value = false
+        }
         return mutableResponse
     }
 
