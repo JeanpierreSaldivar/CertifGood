@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.saldivar.certifgood">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -12,7 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        >
+
+        <!--
+        descomentar para ambiente de desarrollo
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="com.saldivar.certifgood.firebaseinitprovider"
+            tools:node="remove"
+            />-->
         <activity android:name=".view.activitys.QuestionsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activitys.CertificationsActivity"
@@ -31,5 +40,4 @@
             android:name=".view.activitys.LoginActivity"
             android:screenOrientation="portrait" />
     </application>
-
 </manifest>

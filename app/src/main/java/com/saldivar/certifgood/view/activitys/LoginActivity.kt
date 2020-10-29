@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.FirebaseApp
 import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.R
+import com.saldivar.certifgood.repo.conexionFirebase
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
 import com.saldivar.certifgood.viewModel.MainViewModel

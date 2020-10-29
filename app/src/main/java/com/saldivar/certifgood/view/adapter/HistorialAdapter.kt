@@ -1,6 +1,9 @@
 package com.saldivar.certifgood.view.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,9 +36,11 @@ class HistorialAdapter(private val context: Context): RecyclerView.Adapter<Histo
     class MainViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         fun bin(historial: Historial)= with(itemView){
             if(historial.estado_examen){
-                carita_historial.loadByResourcePicaso(R.drawable.ic_carita_buena)
+                carita_historial.background =resources.getDrawable(R.drawable.ic_carita_buena)
+                item_niveles.setCardBackgroundColor(resources.getColor(R.color.color1))
             }else{
-                carita_historial.loadByResourcePicaso(R.drawable.ic_carita_triste)
+                carita_historial.background =resources.getDrawable(R.drawable.ic_carita_triste)
+                item_niveles.setCardBackgroundColor(resources.getColor(R.color.fux))
             }
             texto_titulo.text = "Certificación: ${historial.nombre_examen}"
             texto_porcentaje.text = "Porcentaje de acierto: ${historial.porcentaje_examen}%"

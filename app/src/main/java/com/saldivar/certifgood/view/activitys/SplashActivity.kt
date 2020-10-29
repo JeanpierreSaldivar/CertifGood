@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.FirebaseApp
 import com.saldivar.certifgood.R
+import com.saldivar.certifgood.repo.conexionFirebase
 import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.viewModel.MainViewModel
@@ -17,6 +19,8 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
+        //descomentar para ambiente de desarrollo
+        //FirebaseApp.initializeApp(this, conexionFirebase.optionsDesarrollo,"databaseDesa")
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
         validarUser()

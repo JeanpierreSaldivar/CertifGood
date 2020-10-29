@@ -4,7 +4,10 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.saldivar.certifgood.repo.objetos.Certification
 import com.saldivar.certifgood.repo.objetos.Historial
 import com.saldivar.certifgood.repo.objetos.Question
@@ -16,6 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class Repo {
+    /*descomentar para ambiente de desarrollo*/
+    /*val app = FirebaseApp.getInstance("databaseDesa")
+    val dbFirestore = FirebaseFirestore.getInstance(app)*/
     val dbFirestore = FirebaseFirestore.getInstance()
     fun getCredenciales():LiveData<String>{
         val mutableResponse = MutableLiveData<String>()

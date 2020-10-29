@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1074649664988",
+    "firebase_url": "https://certifgooddesarrollo.firebaseio.com",
+    "project_id": "certifgooddesarrollo",
+    "storage_bucket": "certifgooddesarrollo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074649664988:android:31ed970e2556653340d319",
+        "android_client_info": {
+          "package_name": "com.saldivar.certifgood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074649664988-rs90dksknv791jkoimobihjh9p8m2k3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALDhZNcD3jhIwVuhZzjuqEm6xQ-cOTzUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074649664988-rs90dksknv791jkoimobihjh9p8m2k3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
