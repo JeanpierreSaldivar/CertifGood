@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.saldivar.certifgood.repo.Repo
 import com.saldivar.certifgood.repo.objetos.Certification
+import com.saldivar.certifgood.repo.objetos.Historial
 import com.saldivar.certifgood.repo.objetos.Question
 
 class MainViewModel: ViewModel() {
@@ -63,9 +64,17 @@ class MainViewModel: ViewModel() {
         }
         return  mutableResponse
     }
-    fun saveHistorial(imageUser:String,size:Int):LiveData<Boolean>{
+    fun saveHistorial(size:Int):LiveData<Boolean>{
         val mutableResponse = MutableLiveData<Boolean>()
-        repo.saveHistorial(imageUser,size).observeForever{
+        repo.saveHistorial(size).observeForever{
+            mutableResponse.value = it
+        }
+        return mutableResponse
+    }
+
+    fun getHistorial(user:String):LiveData<MutableList<Historial>>{
+        val mutableResponse = MutableLiveData<MutableList<Historial>>()
+        repo.getListHistorial(user).observeForever{
             mutableResponse.value = it
         }
         return mutableResponse

@@ -13,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activitys.QuestionsActivity"></activity>
-        <activity android:name=".view.activitys.CertificationsActivity" />
+        <activity android:name=".view.activitys.QuestionsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activitys.CertificationsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activitys.SplashActivity"
             android:screenOrientation="portrait"

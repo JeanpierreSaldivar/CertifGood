@@ -5,25 +5,43 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
+import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
+import com.saldivar.certifgood.view.fragments.HistorialFragment
 import com.saldivar.certifgood.view.fragments.ListCertificationsFragment
+import com.saldivar.certifgood.viewModel.MainViewModel
+import com.saldivar.permisolibrary.preferencesSaldivar
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_certificaciones.*
 
 class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
+    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_certificaciones)
         supportActionBar?.hide()
         ui()
         openFragment(ListCertificationsFragment.newInstance())
+        activarFloatingButton()
 
+    }
+
+    private fun activarFloatingButton() {
+        val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
+        val user = prefs.getString("usuario", CredentialsLogin.usuario)!!
+        viewModel.sizeHistorial(user).observeForever {
+            if(it!=0){
+                floatingButtonHistorial.visibility= View.VISIBLE
+            }
+        }
     }
 
     private fun ui() {
         back_flecha.setOnClickListener(this@CertificationsActivity)
+        floatingButtonHistorial.setOnClickListener(this@CertificationsActivity)
     }
 
     private fun openFragment(fragment: ListCertificationsFragment){
@@ -41,6 +59,7 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
     private fun consultarFragmentMostreado() {
         if(CheckInternetConnection.validateInternetConnection(this@CertificationsActivity)) {
             if (SwitchFragment.numeroFragmentMostrado == 2) {
+                floatingButtonHistorial.visibility = View.VISIBLE
                 openFragment(ListCertificationsFragment.newInstance())
             } else {
                 ShowDialog.dialogShowOptions(
@@ -66,6 +85,16 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
     override fun onClick(v: View) {
         when(v.id){
             R.id.back_flecha->{ consultarFragmentMostreado() }
+            R.id.floatingButtonHistorial-> openFragmentHistorial(HistorialFragment.newInstance())
         }
+    }
+
+    private fun openFragmentHistorial(fragment: HistorialFragment){
+        floatingButtonHistorial.visibility = View.GONE
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container_fragment_certificaciones,fragment)
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            addToBackStack(null)
+            commit()}
     }
 }

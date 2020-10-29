@@ -16,10 +16,12 @@ import com.saldivar.certifgood.repo.objetos.Certification
 import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
+import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.adapter.CertificacionAdapter
 import com.saldivar.certifgood.view.adapter.ListenerCertificationsAdapter
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
+import kotlinx.android.synthetic.main.activity_certificaciones.*
 import kotlinx.android.synthetic.main.fragment_list_certificaciones.view.*
 
 class ListCertificationsFragment : Fragment() {

@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/datos_user"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color3">
@@ -42,6 +44,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_historial"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_recycler_hitorial"

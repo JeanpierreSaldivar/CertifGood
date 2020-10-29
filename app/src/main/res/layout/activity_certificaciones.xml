@@ -59,10 +59,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingButtonHistorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/color1"
             android:layout_margin="30dp"
+            android:visibility="gone"
             android:src="@drawable/historial"
             android:cropToPadding="true"
             app:maxImageSize="60dp"

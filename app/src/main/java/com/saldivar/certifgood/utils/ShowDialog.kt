@@ -131,12 +131,12 @@ object ShowDialog {
                 is CertificationsActivity -> {
                     val prefs = preferencesSaldivar(context,0,"Datos_Usuario")
                     val pref = prefs.edit()
+                    pref.putBoolean("actividad_user",false)
+                    pref.apply()
                     ViewModelProvider(context).get(MainViewModel::class.java).updateActividadUsuario(prefs.getString("id_documento",CredentialsLogin.id_documento)!!,false).observe(context,
                         Observer {
                             when(it){
                                 true->{
-                                    pref.putBoolean("actividad_user",false)
-                                    pref.apply()
                                     val ss = CertificationsActivity()
                                     ss.backLoginActivity(context)
                                 }

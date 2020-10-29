@@ -1,10 +1,12 @@
 package com.saldivar.certifgood.repo
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.saldivar.certifgood.repo.objetos.Certification
+import com.saldivar.certifgood.repo.objetos.Historial
 import com.saldivar.certifgood.repo.objetos.Question
 import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.CredentialsLogin
@@ -58,9 +60,14 @@ class Repo {
         val mutableResponse = MutableLiveData<String>()
         dbFirestore.collection("USUARIOS").whereEqualTo("user", user).get().addOnSuccessListener {
             for (document in it){
-                val image = document.getString("image_user_url")!!
+                var image = document.getString("image_user_url")!!
+                if(image.isEmpty()){
+                 image = "no tiene imagen"
+                }
                 mutableResponse.value = image
             }
+        }.addOnFailureListener {
+            mutableResponse.value="no hay imagen"
         }
         return mutableResponse
     }
@@ -72,7 +79,7 @@ class Repo {
         }
         return mutableResponse
     }
-    fun saveHistorial(imageUser:String,size:Int):LiveData<Boolean>{
+    fun saveHistorial(size:Int):LiveData<Boolean>{
         val mutableResponse = MutableLiveData<Boolean>()
         val data = hashMapOf(
             "estado_examen" to HistorialObject.estado_examen,
@@ -82,7 +89,6 @@ class Repo {
             "porcentaje_examen" to HistorialObject.porcentaje_examen,
             "orden_historial_prueba" to size.toString(),
             "orden_historial_int" to size,
-            "imagen_usuario" to imageUser
         )
         dbFirestore.collection("HISTORIAL").add(data).addOnSuccessListener {
             mutableResponse.value = true
@@ -138,6 +144,35 @@ class Repo {
                 questionList.add(question)
             }
             mutableResponse.value = questionList
+        }
+        return mutableResponse
+    }
+
+    fun getListHistorial(user:String):LiveData<MutableList<Historial>>{
+        val mutableResponse = MutableLiveData<MutableList<Historial>>()
+        dbFirestore.collection("HISTORIAL").whereEqualTo("usuario",user).
+        get().addOnSuccessListener {
+            val historialList = mutableListOf<Historial>()
+            val historialListOrdenado = mutableListOf<Historial>()
+            for (document in it){
+                val estado_examen = document.getBoolean("estado_examen")!!
+                val nombre_examen = document.getString("nombre_examen")!!
+                val nota_examen = document.getString("nota_examen")!!
+                val orden_historial_prueba = document.getString("orden_historial_prueba")!!
+                val porcentaje_examen = document.getString("porcentaje_examen")!!
+                val historial = Historial(estado_examen,nombre_examen,nota_examen, orden_historial_prueba, porcentaje_examen)
+                historialList.add(historial)
+            }
+
+            for (j in (historialList.size-1) downTo 0){
+                for(i in (historialList.size-1) downTo 0){
+                    if(historialList[j].orden_historial_prueba.toInt()==i){
+                        historialListOrdenado.add(historialList[i])
+                    }
+                }
+            }
+
+            mutableResponse.value = historialListOrdenado
         }
         return mutableResponse
     }

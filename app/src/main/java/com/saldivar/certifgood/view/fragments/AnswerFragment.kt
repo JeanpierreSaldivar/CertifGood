@@ -115,11 +115,11 @@ class AnswerFragment : Fragment(),View.OnClickListener {
         HistorialObject.porcentaje_examen = porcentajeAprobado.toString()
         HistorialObject.nombre_examen = CertificationObject.nombreCertificacion
         HistorialObject.usuario=user
-        viewModel.queryImageNameUser(user).observe(this.viewLifecycleOwner, Observer {imageUser->
+
             viewModel.sizeHistorial(user).observe(this.viewLifecycleOwner, Observer {size->
-                viewModel.saveHistorial(imageUser,size).observe(this.viewLifecycleOwner, Observer {})
+                viewModel.saveHistorial(size).observe(this.viewLifecycleOwner, Observer {})
             })
-        })
+
 
 
 
