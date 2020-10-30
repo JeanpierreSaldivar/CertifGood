@@ -173,6 +173,7 @@ class Repo {
             for (j in (historialList.size-1) downTo 0){
                 for(i in (historialList.size-1) downTo 0){
                     if(historialList[j].orden_historial_prueba.toInt()==i){
+                        Log.d("kkkk","${historialList[i]}")
                         historialListOrdenado.add(historialList[i])
                     }
                 }
