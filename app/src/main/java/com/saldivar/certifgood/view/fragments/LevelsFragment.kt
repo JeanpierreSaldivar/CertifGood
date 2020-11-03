@@ -19,6 +19,7 @@ import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import com.saldivar.certifgood.view.adapter.ListenerLevelsAdapter
 import com.saldivar.certifgood.view.adapter.LevelsAdapter
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
+import kotlinx.android.synthetic.main.fragment_niveles.*
 import kotlinx.android.synthetic.main.fragment_niveles.view.*
 
 class LevelsFragment : Fragment() {
@@ -34,6 +35,7 @@ class LevelsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootview= inflater.inflate(R.layout.fragment_niveles, container, false)
+        rootview.totalNivelestxt.text = "Total ${CertificationObject.niveles} niveles"
         recycler = rootview.recyclerview_niveles as RecyclerView
         recycler.layoutManager = LinearLayoutManager(context)
         SwitchFragment.numeroFragmentMostrado=2

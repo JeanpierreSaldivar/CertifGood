@@ -30,7 +30,7 @@ class ListCertificationsFragment : Fragment() {
     private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: CertificacionAdapter
-    private val layoutManager by lazy { LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)}
+    private val layoutManager by lazy { LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +38,7 @@ class ListCertificationsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootview = inflater.inflate(R.layout.fragment_list_certificaciones, container, false)
+        this.activity!!.text_certifiacion.text = "Lista de certificaciones:"
         recycler = rootview.recyclerview_certificaciones as RecyclerView
         recycler.layoutManager = LinearLayoutManager(context)
         SwitchFragment.numeroFragmentMostrado=1

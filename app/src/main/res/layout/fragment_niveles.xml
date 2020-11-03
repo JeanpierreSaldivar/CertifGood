@@ -4,11 +4,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.fragments.LevelsFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_niveles"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_recycler_niveles" />
+        android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/item_certificacion"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginHorizontal="20dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="20dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardBackgroundColor="@color/primaryLightColor">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/texto_certificacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Certificación Cisco CCNA"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/niveles"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Niveles:"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"/>
+        <TextView
+            android:id="@+id/totalNivelestxt"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total de niveles"
+            android:textColor="@color/secondaryLightColor"
+            android:textSize="18sp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_niveles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_recycler_niveles" />
+    </LinearLayout>
+
+
+
 
 </FrameLayout>

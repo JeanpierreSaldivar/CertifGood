@@ -37,7 +37,7 @@ class HistorialAdapter(private val context: Context): RecyclerView.Adapter<Histo
         fun bin(historial: Historial)= with(itemView){
             if(historial.estado_examen){
                 carita_historial.background =resources.getDrawable(R.drawable.ic_carita_buena)
-                item_niveles.setCardBackgroundColor(resources.getColor(R.color.color1))
+                item_niveles.setCardBackgroundColor(resources.getColor(R.color.primaryColor))
             }else{
                 carita_historial.background =resources.getDrawable(R.drawable.ic_carita_triste)
                 item_niveles.setCardBackgroundColor(resources.getColor(R.color.fux))

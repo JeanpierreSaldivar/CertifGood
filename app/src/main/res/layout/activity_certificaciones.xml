@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/AppTheme_CertificacionesActivity"
     android:orientation="vertical"
     tools:context=".view.activitys.CertificationsActivity">
 
@@ -11,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/color1"
+        android:background="@color/primaryDarkColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +25,7 @@
                 android:id="@+id/back_flecha"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:tint="@color/color3"
+                android:backgroundTint="@color/whiteColor"
                 android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:background="@drawable/ic_flecha"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -45,6 +46,55 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/texto_descripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textHola"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="¡Hola!"
+                android:textColor="@color/primaryTextColor"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textHolaUser"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="User"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/text_certifiacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lista de Certificaciones:"
+                android:textColor="@color/secondaryLightColor"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imagen_user"
+            app:civ_border_width="5dp"
+            app:civ_border_color="@color/color1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:src="@drawable/imagen_login_black" />
+    </LinearLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -52,9 +102,9 @@
         <FrameLayout
             android:id="@+id/container_fragment_certificaciones"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,10 +112,10 @@
             android:id="@+id/floatingButtonHistorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@color/color1"
             android:layout_margin="30dp"
             android:visibility="gone"
             android:src="@drawable/historial"
+            android:tint="@color/secondaryTextColor"
             android:cropToPadding="true"
             app:maxImageSize="60dp"
             app:fabCustomSize="80dp"

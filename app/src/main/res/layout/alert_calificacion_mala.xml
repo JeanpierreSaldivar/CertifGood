@@ -10,13 +10,13 @@
         android:id="@+id/cardviewAlert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="35dp"
+        android:layout_margin="25dp"
         app:cardBackgroundColor="@color/fux"
         app:cardCornerRadius="28dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp">
+            android:layout_margin="15dp">
             <ImageView
                 android:id="@+id/circleImageView"
                 android:layout_width="95dp"
@@ -24,7 +24,6 @@
                 app:maxImageSize="55dp"
                 app:fabCustomSize="95dp"
                 android:src="@drawable/ic_carita_triste"
-                app:backgroundTint="@color/color1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +32,6 @@
             <TextView
                 android:id="@+id/texto_alert"
                 android:layout_width="match_parent"
-                android:layout_marginHorizontal="15dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"

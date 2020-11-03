@@ -9,12 +9,13 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="35dp"
-        app:cardBackgroundColor="@color/color1"
+        android:layout_margin="25dp"
+        app:cardBackgroundColor="@color/primaryColor"
         app:cardCornerRadius="28dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="15dp">
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/circleImageView"
                 android:layout_marginTop="5dp"
@@ -23,7 +24,7 @@
                 app:maxImageSize="55dp"
                 app:fabCustomSize="95dp"
                 android:src="@drawable/ic_warning"
-                android:tint="@color/color1"
+                android:tint="@color/primaryColor"
                 app:backgroundTint="@color/whiteColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

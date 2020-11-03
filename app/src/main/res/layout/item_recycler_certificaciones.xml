@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_certificacion"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
     android:layout_marginHorizontal="15dp"
     android:foreground="?android:attr/selectableItemBackgroundBorderless"
     android:layout_marginTop="15dp"
     app:cardCornerRadius="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/color3">
+    app:cardBackgroundColor="@color/primaryLightColor">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,9 +16,10 @@
             android:id="@+id/texto_certificacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Certificacion Cisco CCNA"
+            android:gravity="center"
+            android:text="Certificación Cisco CCNA"
             android:layout_margin="15dp"
-            android:textColor="@color/whiteColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

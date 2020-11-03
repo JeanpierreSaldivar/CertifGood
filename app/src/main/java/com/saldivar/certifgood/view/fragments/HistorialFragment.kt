@@ -17,12 +17,14 @@ import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
 import com.saldivar.certifgood.utils.loadByUrlPicaso
+import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.adapter.CertificacionAdapter
 import com.saldivar.certifgood.view.adapter.HistorialAdapter
 import com.saldivar.certifgood.view.adapter.ListenerCertificationsAdapter
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.permisolibrary.preferencesSaldivar
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
+import kotlinx.android.synthetic.main.activity_certificaciones.*
 import kotlinx.android.synthetic.main.fragment_historial.*
 import kotlinx.android.synthetic.main.fragment_historial.view.*
 import kotlinx.android.synthetic.main.fragment_list_certificaciones.view.*
@@ -42,6 +44,7 @@ class HistorialFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootview = inflater.inflate(R.layout.fragment_historial, container, false)
+        this.activity!!.text_certifiacion.text = "Historial de evaluaciones:"
         adapter= HistorialAdapter(this.requireContext())
         recycler = rootview.recycler_historial as RecyclerView
         recycler.layoutManager = LinearLayoutManager(context)
@@ -58,17 +61,12 @@ class HistorialFragment : Fragment() {
         val prefs = preferencesSaldivar(this.activity!!,0,"Datos_Usuario")
         val user = prefs.getString("usuario", CredentialsLogin.usuario)!!
         if(CheckInternetConnection.validateInternetConnection(this.activity!!)){
-            viewModel.queryImageNameUser(user).observe(this.viewLifecycleOwner, Observer {url->
-                texto_nombre_usuario.text = user
-                imagen_user.loadByUrlPicaso(url,R.drawable.imagen_login_black)
-                datos_user.visibility = View.VISIBLE
-                viewModel.getHistorial(user).observe(this.viewLifecycleOwner, Observer {
-                    recycler.setHasFixedSize(true)
-                    recycler.itemAnimator = DefaultItemAnimator()
-                    recycler.layoutManager = layoutManager
-                    adapter.setListData(it)
-                    adapter.notifyDataSetChanged()
-                })
+            viewModel.getHistorial(user).observe(this.viewLifecycleOwner, Observer {
+                recycler.setHasFixedSize(true)
+                recycler.itemAnimator = DefaultItemAnimator()
+                recycler.layoutManager = layoutManager
+                adapter.setListData(it)
+                adapter.notifyDataSetChanged()
             })
         }else{
             ShowDialog.dialogShow("Compruebe su conexion a internet", this.activity!!)

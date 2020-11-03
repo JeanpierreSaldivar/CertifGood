@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
                     validateCampos()
                 }
                 else{
-                    ShowDialog.dialogShow("Compruebe su conexion a internet", this@LoginActivity)
+                    ShowDialog.dialogShow("Compruebe su conexión a internet", this@LoginActivity)
                 }
             }
             R.id.Googlebtn ->{

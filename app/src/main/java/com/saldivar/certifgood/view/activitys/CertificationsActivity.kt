@@ -10,6 +10,7 @@ import com.saldivar.certifgood.R
 import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
+import com.saldivar.certifgood.utils.loadByUrlPicaso
 import com.saldivar.certifgood.view.fragments.HistorialFragment
 import com.saldivar.certifgood.view.fragments.ListCertificationsFragment
 import com.saldivar.certifgood.viewModel.MainViewModel
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_certificaciones.*
 class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
     private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_CertificacionesActivity)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_certificaciones)
         supportActionBar?.hide()
@@ -40,6 +42,9 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun ui() {
+        val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
+        textHolaUser.text =prefs.getString("name_User","Usuario")
+        imagen_user.loadByUrlPicaso( prefs.getString("foto","no foto")!!,R.drawable.ic_usuario_defecto)
         back_flecha.setOnClickListener(this@CertificationsActivity)
         floatingButtonHistorial.setOnClickListener(this@CertificationsActivity)
     }
@@ -63,12 +68,12 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
                 openFragment(ListCertificationsFragment.newInstance())
             } else {
                 ShowDialog.dialogShowOptions(
-                    "¿Desea cerrar la sesion?",
+                    "¿Desea cerrar la sesión?",
                     this@CertificationsActivity
                 )
             }
         }else{
-            ShowDialog.dialogShow("Compruebe su conexion a internet", this@CertificationsActivity)
+            ShowDialog.dialogShow("Compruebe su conexión a internet", this@CertificationsActivity)
         }
     }
 
