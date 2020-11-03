@@ -25,9 +25,9 @@ class MainViewModel: ViewModel() {
         }
         return mutableResponse
     }
-    fun getResultadoBusquedaUsuario():LiveData<String>{
+    fun getResultadoBusquedaUsuario(user: String):LiveData<String>{
         val mutableResponse =MutableLiveData<String>()
-        repo.getCredenciales().observeForever{
+        repo.getCredenciales(user).observeForever{
             mutableResponse.value=it
         }
         return mutableResponse
@@ -72,6 +72,13 @@ class MainViewModel: ViewModel() {
         return mutableResponse
     }
 
+    fun saveGoogleUser(user:String,foto:String,nameUser:String):LiveData<Boolean>{
+        val mutableResponse = MutableLiveData<Boolean>()
+        repo.saveDataUserGoogle(user,foto,nameUser).observeForever{
+            mutableResponse.value = it
+        }
+        return mutableResponse
+    }
     fun getHistorial(user:String):LiveData<MutableList<Historial>>{
         val mutableResponse = MutableLiveData<MutableList<Historial>>()
         repo.getListHistorial(user).observeForever{

@@ -1,5 +1,6 @@
 package com.saldivar.certifgood.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
+import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import com.saldivar.certifgood.view.adapter.CertificacionAdapter
 import com.saldivar.certifgood.view.adapter.ListenerCertificationsAdapter
 import com.saldivar.certifgood.viewModel.MainViewModel
@@ -89,12 +91,25 @@ class ListCertificationsFragment : Fragment() {
 
             }
         }
-        this.activity!!.supportFragmentManager.beginTransaction().apply{
-            replace(R.id.container_fragment_certificaciones,LevelsFragment.newInstance())
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            addToBackStack(null)
-            commit()
-
+        if(CertificationObject.niveles==1){
+            CertificationObject.nivelElegido = CertificationObject.niveles.toString()
+            val activity = this.activity!!
+            if(CheckInternetConnection.validateInternetConnection(activity)){
+                activity.apply {
+                    startActivity(Intent(this, QuestionsActivity::class.java))
+                    overridePendingTransition(R.anim.left_in, R.anim.left_out)
+                    finish()
+                }
+            }else{
+                ShowDialog.dialogShow("Compruebe su conexion a internet", activity)
+            }
+        }else{
+            this.activity!!.supportFragmentManager.beginTransaction().apply{
+                replace(R.id.container_fragment_certificaciones,LevelsFragment.newInstance())
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                addToBackStack(null)
+                commit()
+        }
 
     }}
 }

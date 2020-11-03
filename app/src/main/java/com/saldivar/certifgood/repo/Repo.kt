@@ -23,10 +23,9 @@ class Repo {
     /*val app = FirebaseApp.getInstance("databaseDesa")
     val dbFirestore = FirebaseFirestore.getInstance(app)*/
     val dbFirestore = FirebaseFirestore.getInstance()
-    fun getCredenciales():LiveData<String>{
+    fun getCredenciales(user: String):LiveData<String>{
         val mutableResponse = MutableLiveData<String>()
-        dbFirestore.collection("USUARIOS").whereEqualTo("user", CredentialsLogin.usuario)
-            .whereEqualTo("password", CredentialsLogin.password).get().addOnSuccessListener {
+        dbFirestore.collection("USUARIOS").whereEqualTo("user", user).get().addOnSuccessListener {
                 if(it.size() != 0){
                     mutableResponse.value ="Usuario existe"
                     CredentialsLogin.id_documento = it.documents[0].id
@@ -35,6 +34,21 @@ class Repo {
                 }
 
             }
+        return mutableResponse
+    }
+
+    fun saveDataUserGoogle(user:String,foto:String,nameUser:String):LiveData<Boolean>{
+        val mutableResponse = MutableLiveData<Boolean>()
+        val data = hashMapOf(
+            "user" to user,
+            "image_user_url" to foto,
+            "nombre_user" to nameUser,
+        )
+        dbFirestore.collection("USUARIOS").add(data).addOnSuccessListener {
+            mutableResponse.value = true
+        }.addOnFailureListener {
+            mutableResponse.value = false
+        }
         return mutableResponse
     }
 

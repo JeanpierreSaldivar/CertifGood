@@ -13,6 +13,7 @@ import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.permisolibrary.goneModalProgressSaldivar
 import com.saldivar.permisolibrary.preferencesSaldivar
+import kotlinx.android.synthetic.main.activity_main.*
 
 class SplashActivity : AppCompatActivity() {
     private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
@@ -23,7 +24,17 @@ class SplashActivity : AppCompatActivity() {
         //FirebaseApp.initializeApp(this, conexionFirebase.optionsDesarrollo,"databaseDesa")
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
-        validarUser()
+        val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
+        if(prefs.getString("contraseña", "") == "defecto" ){
+            validarUserGoogle()
+        }
+        else{
+            validarUser()
+        }
+    }
+
+    private fun validarUserGoogle() {
+        nextCertificacionesActivity()
     }
 
     private fun validarUser() {
@@ -31,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
         CredentialsLogin.actividad_user= prefs.getBoolean("actividad_user", false)
         CredentialsLogin.usuario= prefs.getString("usuario", "")!!
         CredentialsLogin.password= prefs.getString("contraseña", "")!!
-        viewModel.getResultadoBusquedaUsuario().observe(this, Observer {
+        viewModel.getResultadoBusquedaUsuario(CredentialsLogin.usuario).observe(this, Observer {
             when(it){
                 "Usuario existe"->{
                     viewModel.getActividadUsuarioEncontrado().observe(this, Observer {actividad->

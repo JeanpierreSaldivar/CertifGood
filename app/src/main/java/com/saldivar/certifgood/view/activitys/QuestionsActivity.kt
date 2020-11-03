@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.system.Os.remove
+import android.util.Log
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import com.saldivar.certifgood.R
@@ -39,6 +40,7 @@ class QuestionsActivity : AppCompatActivity() {
             while (contadorPreguntas<numberQuestionsEvaluate){
                 contadorPreguntas+=1
                 val numberRandom = listNumberRandom(lowerRank..topRank)
+                Log.d("numeros_generados","$numberRandom")//demostracion
                 if(contadorPreguntas==1){
                     listSelectionQuestions.add(numberRandom)
                 }else{
@@ -47,6 +49,7 @@ class QuestionsActivity : AppCompatActivity() {
                         contadorPreguntas-=1
                     }
                     else{
+                        Log.d("numeros_dentro","$numberRandom")//demostracion
                         listSelectionQuestions.add(numberRandom)
                     }
                 }
