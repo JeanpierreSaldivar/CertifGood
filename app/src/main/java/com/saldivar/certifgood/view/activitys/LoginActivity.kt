@@ -17,15 +17,11 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.repo.conexionFirebase
-import com.saldivar.certifgood.utils.ShowDialog
+import com.saldivar.certifgood.utils.*
 import com.saldivar.certifgood.utils.permissionsAndConexion.CheckConnectionPermissionsToPerformFunctionality
 import com.saldivar.certifgood.viewModel.MainViewModel
-import com.saldivar.permisolibrary.goneModalProgressSaldivar
-import com.saldivar.permisolibrary.preferencesSaldivar
-import com.saldivar.permisolibrary.showModalProgressSaldivar
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_main.*
 

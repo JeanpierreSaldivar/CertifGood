@@ -13,16 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.repo.objetos.Certification
 import com.saldivar.certifgood.repo.objetos.Historial
-import com.saldivar.certifgood.utils.CredentialsLogin
-import com.saldivar.certifgood.utils.ShowDialog
-import com.saldivar.certifgood.utils.SwitchFragment
-import com.saldivar.certifgood.utils.loadByUrlPicaso
+import com.saldivar.certifgood.utils.*
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.adapter.CertificacionAdapter
 import com.saldivar.certifgood.view.adapter.HistorialAdapter
 import com.saldivar.certifgood.view.adapter.ListenerCertificationsAdapter
 import com.saldivar.certifgood.viewModel.MainViewModel
-import com.saldivar.permisolibrary.preferencesSaldivar
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_certificaciones.*
 import kotlinx.android.synthetic.main.fragment_historial.*

@@ -2,7 +2,7 @@ package com.saldivar.certifgood.utils.permissionsAndConexion
 
 import android.Manifest
 import android.app.Activity
-import com.saldivar.permisolibrary.multiplePermissionsSaldivar
+import com.saldivar.certifgood.utils.multiplePermissionsSaldivar
 
 object CheckPermissions {
     var statusPermissions:Boolean = false

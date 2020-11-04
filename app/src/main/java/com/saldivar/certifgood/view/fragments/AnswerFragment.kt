@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.utils.*
 import com.saldivar.certifgood.viewModel.MainViewModel
-import com.saldivar.permisolibrary.preferencesSaldivar
 import kotlinx.android.synthetic.main.fragment_answer.view.*
 import kotlinx.coroutines.*
 

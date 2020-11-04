@@ -14,7 +14,6 @@ import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import com.saldivar.certifgood.view.fragments.ChronometerFragment
 import com.saldivar.certifgood.viewModel.MainViewModel
-import com.saldivar.permisolibrary.preferencesSaldivar
 import kotlinx.android.synthetic.main.fragment_chronometer.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

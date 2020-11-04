@@ -7,14 +7,10 @@ import android.view.View
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.saldivar.certifgood.R
-import com.saldivar.certifgood.utils.CredentialsLogin
-import com.saldivar.certifgood.utils.ShowDialog
-import com.saldivar.certifgood.utils.SwitchFragment
-import com.saldivar.certifgood.utils.loadByUrlPicaso
+import com.saldivar.certifgood.utils.*
 import com.saldivar.certifgood.view.fragments.HistorialFragment
 import com.saldivar.certifgood.view.fragments.ListCertificationsFragment
 import com.saldivar.certifgood.viewModel.MainViewModel
-import com.saldivar.permisolibrary.preferencesSaldivar
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_certificaciones.*
 

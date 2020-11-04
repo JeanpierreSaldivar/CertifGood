@@ -10,9 +10,8 @@ import com.saldivar.certifgood.R
 import com.saldivar.certifgood.repo.conexionFirebase
 import com.saldivar.certifgood.utils.CredentialsLogin
 import com.saldivar.certifgood.utils.ShowDialog
+import com.saldivar.certifgood.utils.preferencesSaldivar
 import com.saldivar.certifgood.viewModel.MainViewModel
-import com.saldivar.permisolibrary.goneModalProgressSaldivar
-import com.saldivar.permisolibrary.preferencesSaldivar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class SplashActivity : AppCompatActivity() {
