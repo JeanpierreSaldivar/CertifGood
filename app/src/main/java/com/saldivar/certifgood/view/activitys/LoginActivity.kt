@@ -103,6 +103,8 @@ class LoginActivity : AppCompatActivity(),CheckConnectionPermissionsToPerformFun
                                                 val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
                                                 val pref =prefs.edit()
                                                 pref.putString("usuario",account.email!!)
+                                                pref.putString("foto",account.photoUrl.toString())
+                                                pref.putString("name_User",account.displayName)
                                                 pref.putString("contraseña","defecto")
                                                 pref.apply()
                                                 nextActivity()
