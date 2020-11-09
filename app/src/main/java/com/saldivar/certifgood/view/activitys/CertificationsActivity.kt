@@ -15,7 +15,8 @@ import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.activity_certificaciones.*
 
 class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
-    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
+    private val viewModel by lazy{ this.viewModel()}
+    private val prefs by lazy { this.preferences() }
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_CertificacionesActivity)
         super.onCreate(savedInstanceState)
@@ -24,63 +25,13 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
         ui()
         openFragment(ListCertificationsFragment.newInstance())
         activarFloatingButton()
-
-    }
-
-    private fun activarFloatingButton() {
-        val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
-        val user = prefs.getString("usuario", CredentialsLogin.usuario)!!
-        viewModel.sizeHistorial(user).observeForever {
-            if(it!=0){
-                floatingButtonHistorial.visibility= View.VISIBLE
-            }
-        }
     }
 
     private fun ui() {
-        val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
-        textHolaUser.text =prefs.getString("name_User","Usuario")
-        imagen_user.loadByUrlPicaso( prefs.getString("foto","no foto")!!,R.drawable.ic_usuario_defecto)
+        textHolaUser.text =prefs.getString(getString(R.string.name_User),getString(R.string.name_user_show))
+        imagen_user.loadByUrlPicaso( prefs.getString(getString(R.string.foto_User),"")!!,R.drawable.ic_usuario_defecto)
         back_flecha.setOnClickListener(this@CertificationsActivity)
         floatingButtonHistorial.setOnClickListener(this@CertificationsActivity)
-    }
-
-    private fun openFragment(fragment: ListCertificationsFragment){
-      supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.container_fragment_certificaciones,fragment)
-                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    addToBackStack(null)
-                    commit()}
-    }
-
-    override fun onBackPressed() {
-        consultarFragmentMostreado()
-    }
-
-    private fun consultarFragmentMostreado() {
-        if(CheckInternetConnection.validateInternetConnection(this@CertificationsActivity)) {
-            if (SwitchFragment.numeroFragmentMostrado == 2) {
-                floatingButtonHistorial.visibility = View.VISIBLE
-                openFragment(ListCertificationsFragment.newInstance())
-            } else {
-                ShowDialog.dialogShowOptions(
-                    "¿Desea cerrar la sesión?",
-                    this@CertificationsActivity
-                )
-            }
-        }else{
-            ShowDialog.dialogShow("Compruebe su conexión a internet", this@CertificationsActivity)
-        }
-    }
-
-
-    internal fun backLoginActivity(context: CertificationsActivity) {
-         context.apply {
-             startActivity(Intent(context, LoginActivity::class.java))
-             overridePendingTransition(R.anim.right_in, R.anim.right_out)
-             finish()
-         }
-
     }
 
     override fun onClick(v: View) {
@@ -90,11 +41,56 @@ class CertificationsActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
+    override fun onBackPressed() {
+        consultarFragmentMostreado()
+    }
+
+    private fun openFragment(fragment: ListCertificationsFragment){
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container_fragment_certificaciones,fragment)
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            addToBackStack(null)
+            commit()}
+    }
+
+    private fun activarFloatingButton() {
+        val user = prefs.getString(getString(R.string.email_User), "")!!
+        viewModel.sizeHistorial(user).observeForever {
+            if(it!=0){ floatingButtonHistorial.visibility= View.VISIBLE }
+        }
+    }
+
+    private fun consultarFragmentMostreado() {
+        if(CheckInternetConnection.validateInternetConnection(this@CertificationsActivity)) {
+            if (SwitchFragment.numeroFragmentMostrado == 2) {
+                floatingButtonHistorial.visibility = View.VISIBLE
+                openFragment(ListCertificationsFragment.newInstance())
+            } else { dialogShowOption(getString(R.string.consultar_cerrar_sesion)) }
+
+        }else{ dialogShow(getString(R.string.text_error_conexion_internet)) }
+    }
+
+    private fun dialogShowOption(message:String){
+        ShowDialog.dialogShowOptions(message = message, context = this@CertificationsActivity)
+    }
+
+    private fun dialogShow(message:String){
+        ShowDialog.dialogShow(message = message, context = this@CertificationsActivity)
+    }
+
+    internal fun backLoginActivity(context: CertificationsActivity) {
+         context.apply {
+             startActivity(Intent(context, LoginActivity::class.java))
+             overridePendingTransition(R.anim.right_in, R.anim.right_out)
+             finish()
+         }
+    }
+
     private fun openFragmentHistorial(fragment: HistorialFragment){
         floatingButtonHistorial.visibility = View.GONE
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.container_fragment_certificaciones,fragment)
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             addToBackStack(null)
             commit()}
     }

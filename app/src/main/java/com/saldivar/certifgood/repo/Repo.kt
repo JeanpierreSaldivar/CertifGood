@@ -52,30 +52,6 @@ class Repo {
         return mutableResponse
     }
 
-    fun consultaActividadUser():LiveData<String>{
-        val mutableResponse = MutableLiveData<String>()
-        dbFirestore.collection("USUARIOS").whereEqualTo("user", CredentialsLogin.usuario).
-        whereEqualTo("password", CredentialsLogin.password)
-            .whereEqualTo("actividad_usuario",false).get().addOnSuccessListener {
-                mutableResponse.value = if(it.size() != 0){
-                    "Usuario inactivo"
-                }else{
-                    "Usuario activo"
-                }
-        }
-        return mutableResponse
-    }
-    fun updateActividadUser(idDocumento: String,activacion:Boolean):LiveData<Boolean>{
-        val mutableResponse = MutableLiveData<Boolean>()
-        dbFirestore.collection("USUARIOS").document(idDocumento).update("actividad_usuario",activacion)
-            .addOnSuccessListener {
-                mutableResponse.value = true
-            }.addOnFailureListener {
-                mutableResponse.value= false
-            }
-        return mutableResponse
-    }
-
     fun consultarNombreImagenUser(user:String):LiveData<String>{
         val mutableResponse = MutableLiveData<String>()
         dbFirestore.collection("USUARIOS").whereEqualTo("user", user).get().addOnSuccessListener {

@@ -17,6 +17,7 @@ import com.saldivar.certifgood.repo.objetos.Certification
 import com.saldivar.certifgood.utils.CertificationObject
 import com.saldivar.certifgood.utils.ShowDialog
 import com.saldivar.certifgood.utils.SwitchFragment
+import com.saldivar.certifgood.utils.viewModel
 import com.saldivar.certifgood.view.activitys.CertificationsActivity
 import com.saldivar.certifgood.view.activitys.QuestionsActivity
 import com.saldivar.certifgood.view.adapter.CertificacionAdapter
@@ -27,7 +28,6 @@ import kotlinx.android.synthetic.main.activity_certificaciones.*
 import kotlinx.android.synthetic.main.fragment_list_certificaciones.view.*
 
 class ListCertificationsFragment : Fragment() {
-    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: CertificacionAdapter
     private val layoutManager by lazy { LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)}
@@ -36,13 +36,12 @@ class ListCertificationsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val rootview = inflater.inflate(R.layout.fragment_list_certificaciones, container, false)
-        this.activity!!.text_certifiacion.text = "Lista de certificaciones:"
+        this.activity!!.text_certifiacion.text = getString(R.string.lista_de_certificaciones)
         recycler = rootview.recyclerview_certificaciones as RecyclerView
         recycler.layoutManager = LinearLayoutManager(context)
         SwitchFragment.numeroFragmentMostrado=1
-            observeData()
+        observeData()
         return rootview
     }
 
@@ -51,8 +50,9 @@ class ListCertificationsFragment : Fragment() {
     }
 
     private fun observeData() {
+
         if(CheckInternetConnection.validateInternetConnection(this.activity!!)){
-            viewModel.getListCertificaciones().observe(this.viewLifecycleOwner, Observer {
+            this.activity!!.viewModel().getListCertificaciones().observe(this.viewLifecycleOwner, Observer {
                 val list :MutableList<Certification> = it
                 recycler.setHasFixedSize(true)
                 recycler.itemAnimator = DefaultItemAnimator()

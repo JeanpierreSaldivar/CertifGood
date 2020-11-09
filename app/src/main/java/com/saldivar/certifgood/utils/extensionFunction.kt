@@ -15,6 +15,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -23,6 +25,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
+import com.saldivar.certifgood.R
+import com.saldivar.certifgood.viewModel.MainViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +42,9 @@ fun listNumberRandom(range: IntRange): Int {
 
 fun ImageView.loadByResourcePicaso(url:Int)= Picasso.get().load(url).into(this)
 fun ImageView.loadByUrlPicaso(url:String,defecto:Int)= Picasso.get().load(url).error(defecto).into(this)
+
+fun ViewModelStoreOwner.viewModel() = ViewModelProvider(this).get(MainViewModel::class.java)
+fun Context.preferences()= preferencesSaldivar(this,0,getString(R.string.nombre_preferences))
 
 fun  permissionsSaldivar(permission: String, context: Context): Boolean {
     var permiso = false

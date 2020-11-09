@@ -55,7 +55,7 @@ class HistorialFragment : Fragment() {
 
     private fun getDataHistorial() {
         val prefs = preferencesSaldivar(this.activity!!,0,"Datos_Usuario")
-        val user = prefs.getString("usuario", CredentialsLogin.usuario)!!
+        val user = prefs.getString("email_User", CredentialsLogin.usuario)!!
         if(CheckInternetConnection.validateInternetConnection(this.activity!!)){
             viewModel.getHistorial(user).observe(this.viewLifecycleOwner, Observer {
                 recycler.setHasFixedSize(true)

@@ -8,14 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.saldivar.certifgood.R
 import com.saldivar.certifgood.repo.conexionFirebase
-import com.saldivar.certifgood.utils.CredentialsLogin
-import com.saldivar.certifgood.utils.ShowDialog
-import com.saldivar.certifgood.utils.preferencesSaldivar
+import com.saldivar.certifgood.utils.*
 import com.saldivar.certifgood.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class SplashActivity : AppCompatActivity() {
-    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
+    private val prefs by lazy { this.preferences() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
@@ -23,39 +22,14 @@ class SplashActivity : AppCompatActivity() {
         //FirebaseApp.initializeApp(this, conexionFirebase.optionsDesarrollo,"databaseDesa")
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
-        val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
-        if(prefs.getString("contraseña", "") == "defecto" ){
-            validarUserGoogle()
-        }
-        else{
-            validarUser()
-        }
+        actividadUser()
     }
 
-    private fun validarUserGoogle() {
-        nextCertificacionesActivity()
-    }
-
-    private fun validarUser() {
-        val prefs = preferencesSaldivar(this,0,"Datos_Usuario")
-        CredentialsLogin.actividad_user= prefs.getBoolean("actividad_user", false)
-        CredentialsLogin.usuario= prefs.getString("usuario", "")!!
-        CredentialsLogin.password= prefs.getString("contraseña", "")!!
-        viewModel.getResultadoBusquedaUsuario(CredentialsLogin.usuario).observe(this, Observer {
-            when(it){
-                "Usuario existe"->{
-                    viewModel.getActividadUsuarioEncontrado().observe(this, Observer {actividad->
-                        when(actividad){
-                            "Usuario activo"-> nextCertificacionesActivity()
-                            else->{
-                                nextLoginActivity()
-                            }
-                        }
-                    })
-                }
-                else-> nextLoginActivity()
-            }
-        })
+    private fun actividadUser() {
+        when(prefs.getString(getString(R.string.activo_User), "")){
+            getString(R.string.activo_User)->nextCertificacionesActivity()
+            else->nextLoginActivity()
+        }
     }
 
     private fun nextLoginActivity(){

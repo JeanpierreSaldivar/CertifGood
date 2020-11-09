@@ -1,12 +1,28 @@
 <resources>
     <string name="app_name">CertifGood</string>
-    <string name="usuario">Usuario:</string>
-    <string name="contrase_a">Contraseña:</string>
-    <string name="ingresar">Ingresar</string>
-
+    <!--errores-->
     <string name="text_error_conexion_internet">Revise su conexión a internet</string>
+    <string name="error_inesperado">Ocurrio un error inesperado</string>
+    <string name="usuario_no_existe">Este usuario no existe</string>
+    <!--preferences-->
+    <string name="nombre_preferences">Datos_Usuario</string>
+    <string name="foto_User">foto_User</string>
+    <string name="name_User">name_User</string>
+    <string name="email_User">email_User</string>
+    <string name="activo_User">activo_User</string>
+
+    <string name="usuario_existe">Usuario existe</string>
+
+    <!--consulta-->
+    <string name="consultar_cerrar_sesion">¿Desea cerrar la sesión?</string>
+
     <string name="text_aceptar">Aceptar</string>
     <string name="text_cancelar">Cancelar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="iniciar_sesion_con">Iniciar sesión con:</string>
+    <string name="text_button_google">oogle</string>
+    <string name="hola">¡Hola!</string>
+    <string name="name_user_show">User</string>
+    <string name="lista_de_certificaciones">Lista de Certificaciones:</string>
 </resources>

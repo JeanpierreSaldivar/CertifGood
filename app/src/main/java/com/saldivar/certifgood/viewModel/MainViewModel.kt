@@ -10,21 +10,7 @@ import com.saldivar.certifgood.repo.objetos.Question
 
 class MainViewModel: ViewModel() {
     private val repo= Repo()
-    fun getActividadUsuarioEncontrado():LiveData<String>{
-        val mutableResponse = MutableLiveData<String>()
-        repo.consultaActividadUser().observeForever{
-            mutableResponse.value = it
-        }
-        return mutableResponse
-    }
 
-    fun updateActividadUsuario(Document:String,activacion:Boolean):LiveData<Boolean>{
-        val mutableResponse = MutableLiveData<Boolean>()
-        repo.updateActividadUser(Document,activacion).observeForever{
-            mutableResponse.value = it
-        }
-        return mutableResponse
-    }
     fun getResultadoBusquedaUsuario(user: String):LiveData<String>{
         val mutableResponse =MutableLiveData<String>()
         repo.getCredenciales(user).observeForever{
@@ -49,13 +35,6 @@ class MainViewModel: ViewModel() {
         return  mutableResponse
     }
 
-    fun queryImageNameUser(user:String):LiveData<String>{
-        val mutableResponse = MutableLiveData<String>()
-        repo.consultarNombreImagenUser(user).observeForever{
-            mutableResponse.value = it
-        }
-        return  mutableResponse
-    }
 
     fun sizeHistorial(user:String):LiveData<Int>{
         val mutableResponse = MutableLiveData<Int>()

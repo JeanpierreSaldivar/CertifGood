@@ -108,7 +108,7 @@ class AnswerFragment : Fragment(),View.OnClickListener {
 
     private fun guardarDatos(notaString: String, porcentajeAprobado: Int) {
         val prefs = preferencesSaldivar(this.activity!!,0,"Datos_Usuario")
-        val user = prefs.getString("usuario",CredentialsLogin.usuario)!!
+        val user = prefs.getString("email_User",CredentialsLogin.usuario)!!
         HistorialObject.estado_examen = porcentajeAprobado>=CertificationObject.porcentajeAprobar
         HistorialObject.nota_examen = notaString
         HistorialObject.porcentaje_examen = porcentajeAprobado.toString()
