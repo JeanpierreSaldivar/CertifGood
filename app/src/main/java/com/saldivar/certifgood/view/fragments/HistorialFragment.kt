@@ -27,7 +27,8 @@ import kotlinx.android.synthetic.main.fragment_list_certificaciones.view.*
 
 
 class HistorialFragment : Fragment() {
-    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
+    private val viewModel by lazy{ this.viewModel()}
+    private val prefs by lazy { this.activity!!.preferences() }
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: HistorialAdapter
     private val layoutManager by lazy { LinearLayoutManager(context,
@@ -40,7 +41,7 @@ class HistorialFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootview = inflater.inflate(R.layout.fragment_historial, container, false)
-        this.activity!!.text_certifiacion.text = "Historial de evaluaciones:"
+        this.activity!!.text_certifiacion.text = getString(R.string.historial_de_evaluaciones)
         adapter= HistorialAdapter(this.requireContext())
         recycler = rootview.recycler_historial as RecyclerView
         recycler.layoutManager = LinearLayoutManager(context)
@@ -54,8 +55,7 @@ class HistorialFragment : Fragment() {
     }
 
     private fun getDataHistorial() {
-        val prefs = preferencesSaldivar(this.activity!!,0,"Datos_Usuario")
-        val user = prefs.getString("email_User", CredentialsLogin.usuario)!!
+        val user = prefs.getString(getString(R.string.email_User), getString(R.string.email_User))!!
         if(CheckInternetConnection.validateInternetConnection(this.activity!!)){
             viewModel.getHistorial(user).observe(this.viewLifecycleOwner, Observer {
                 recycler.setHasFixedSize(true)
@@ -65,7 +65,7 @@ class HistorialFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             })
         }else{
-            ShowDialog.dialogShow("Compruebe su conexion a internet", this.activity!!)
+            ShowDialog.dialogShow(getString(R.string.text_error_conexion_internet), this.activity!!)
         }
 
     }

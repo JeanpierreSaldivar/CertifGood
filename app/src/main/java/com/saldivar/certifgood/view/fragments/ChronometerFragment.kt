@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_chronometer.view.*
 
 
 class ChronometerFragment : Fragment() {
-    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
+    private val viewModel by lazy{ this.viewModel()}
     private lateinit var cronometroView:CountDownTimer
     private  lateinit var chronometerTextView :TextView
     override fun onCreateView(

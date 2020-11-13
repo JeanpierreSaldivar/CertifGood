@@ -22,6 +22,7 @@ class Repo {
     /*descomentar para ambiente de desarrollo*/
     /*val app = FirebaseApp.getInstance("databaseDesa")
     val dbFirestore = FirebaseFirestore.getInstance(app)*/
+
     val dbFirestore = FirebaseFirestore.getInstance()
     fun getCredenciales(user: String):LiveData<String>{
         val mutableResponse = MutableLiveData<String>()
@@ -48,22 +49,6 @@ class Repo {
             mutableResponse.value = true
         }.addOnFailureListener {
             mutableResponse.value = false
-        }
-        return mutableResponse
-    }
-
-    fun consultarNombreImagenUser(user:String):LiveData<String>{
-        val mutableResponse = MutableLiveData<String>()
-        dbFirestore.collection("USUARIOS").whereEqualTo("user", user).get().addOnSuccessListener {
-            for (document in it){
-                var image = document.getString("image_user_url")!!
-                if(image.isEmpty()){
-                 image = "no tiene imagen"
-                }
-                mutableResponse.value = image
-            }
-        }.addOnFailureListener {
-            mutableResponse.value="no hay imagen"
         }
         return mutableResponse
     }
@@ -163,7 +148,6 @@ class Repo {
             for (j in (historialList.size-1) downTo 0){
                 for(i in (historialList.size-1) downTo 0){
                     if(historialList[j].orden_historial_prueba.toInt()==i){
-                        Log.d("kkkk","${historialList[i]}")
                         historialListOrdenado.add(historialList[i])
                     }
                 }

@@ -25,4 +25,5 @@
     <string name="hola">¡Hola!</string>
     <string name="name_user_show">User</string>
     <string name="lista_de_certificaciones">Lista de Certificaciones:</string>
+    <string name="historial_de_evaluaciones">Historial de evaluaciones:</string>
 </resources>

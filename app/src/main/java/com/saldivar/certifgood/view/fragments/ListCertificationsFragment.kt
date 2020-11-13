@@ -70,7 +70,7 @@ class ListCertificationsFragment : Fragment() {
             })
         }
         else{
-            ShowDialog.dialogShow("Compruebe su conexion a internet", this.activity!!)
+            ShowDialog.dialogShow(getString(R.string.text_error_conexion_internet), this.activity!!)
         }
 
     }
@@ -102,7 +102,7 @@ class ListCertificationsFragment : Fragment() {
                     finish()
                 }
             }else{
-                ShowDialog.dialogShow("Compruebe su conexion a internet", activity)
+                ShowDialog.dialogShow(getString(R.string.text_error_conexion_internet), activity)
             }
         }else{
             this.activity!!.supportFragmentManager.beginTransaction().apply{

@@ -73,7 +73,7 @@ class LevelsFragment : Fragment() {
                 finish()
             }
         }else{
-            ShowDialog.dialogShow("Compruebe su conexion a internet", activity)
+            ShowDialog.dialogShow(getString(R.string.text_error_conexion_internet), activity)
         }
 
     }

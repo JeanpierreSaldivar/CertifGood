@@ -16,7 +16,8 @@ import kotlinx.coroutines.*
 
 
 class AnswerFragment : Fragment(),View.OnClickListener {
-    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
+    private val viewModel by lazy{ this.viewModel()}
+    private val prefs by lazy { this.activity!!.preferences() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -107,8 +108,7 @@ class AnswerFragment : Fragment(),View.OnClickListener {
     }}
 
     private fun guardarDatos(notaString: String, porcentajeAprobado: Int) {
-        val prefs = preferencesSaldivar(this.activity!!,0,"Datos_Usuario")
-        val user = prefs.getString("email_User",CredentialsLogin.usuario)!!
+        val user = prefs.getString(getString(R.string.email_User),getString(R.string.email_User))!!
         HistorialObject.estado_examen = porcentajeAprobado>=CertificationObject.porcentajeAprobar
         HistorialObject.nota_examen = notaString
         HistorialObject.porcentaje_examen = porcentajeAprobado.toString()

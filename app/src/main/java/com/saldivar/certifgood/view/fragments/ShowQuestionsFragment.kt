@@ -11,13 +11,14 @@ import com.saldivar.certifgood.R
 import com.saldivar.certifgood.repo.objetos.Question
 import com.saldivar.certifgood.utils.QuestionObject
 import com.saldivar.certifgood.utils.ShowDialog
+import com.saldivar.certifgood.utils.viewModel
 import com.saldivar.certifgood.viewModel.MainViewModel
 import com.saldivar.zkflol.utils.permissionsAndConexion.CheckInternetConnection
 import kotlinx.android.synthetic.main.fragment_show_questions.*
 
 
 class ShowQuestionsFragment : Fragment() {
-    private val viewModel by lazy{ ViewModelProvider(this).get(MainViewModel::class.java)}
+    private val viewModel by lazy{ this.viewModel()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +49,7 @@ class ShowQuestionsFragment : Fragment() {
             })
         }
         else{
-            ShowDialog.dialogShow("Compruebe su conexion a internet", this.activity!!)
+            ShowDialog.dialogShow(getString(R.string.text_error_conexion_internet), this.activity!!)
         }
     }
 
