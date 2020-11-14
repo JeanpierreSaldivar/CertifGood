@@ -26,6 +26,7 @@
                 android:src="@drawable/ic_warning"
                 android:tint="@color/primaryColor"
                 app:backgroundTint="@color/whiteColor"
+                android:contentDescription="@string/imgDescription"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

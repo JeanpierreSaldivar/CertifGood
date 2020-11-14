@@ -23,6 +23,7 @@
                 android:layout_height="95dp"
                 app:maxImageSize="55dp"
                 app:fabCustomSize="95dp"
+                android:contentDescription="@string/imgDescription"
                 android:src="@drawable/ic_carita_triste"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

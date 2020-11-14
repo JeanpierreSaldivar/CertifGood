@@ -22,6 +22,7 @@
                 android:layout_height="95dp"
                 app:maxImageSize="55dp"
                 app:fabCustomSize="95dp"
+                android:contentDescription="@string/imgDescription"
                 android:src="@drawable/ic_warning"
                 app:backgroundTint="@color/whiteColor"
                 app:layout_constraintBottom_toBottomOf="parent"

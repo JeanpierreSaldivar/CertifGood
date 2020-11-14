@@ -3,16 +3,21 @@ package com.saldivar.certifgood.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.saldivar.certifgood.repo.Repo
 import com.saldivar.certifgood.repo.objetos.Certification
 import com.saldivar.certifgood.repo.objetos.Historial
 import com.saldivar.certifgood.repo.objetos.Question
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel: ViewModel() {
     private val repo= Repo()
 
     fun getResultadoBusquedaUsuario(user: String):LiveData<String>{
-        val mutableResponse =MutableLiveData<String>()
+        val  mutableResponse = MutableLiveData<String>()
         repo.getCredenciales(user).observeForever{
             mutableResponse.value=it
         }

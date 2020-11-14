@@ -17,6 +17,7 @@ import com.saldivar.certifgood.utils.HistorialObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Repo {
     /*descomentar para ambiente de desarrollo*/
@@ -24,18 +25,17 @@ class Repo {
     val dbFirestore = FirebaseFirestore.getInstance(app)*/
 
     val dbFirestore = FirebaseFirestore.getInstance()
-    fun getCredenciales(user: String):LiveData<String>{
-        val mutableResponse = MutableLiveData<String>()
-        dbFirestore.collection("USUARIOS").whereEqualTo("user", user).get().addOnSuccessListener {
-                if(it.size() != 0){
-                    mutableResponse.value ="Usuario existe"
-                    CredentialsLogin.id_documento = it.documents[0].id
-                }else{
-                    mutableResponse.value = "No existe Usuario"
-                }
-
-            }
-        return mutableResponse
+   fun getCredenciales(user: String):LiveData<String>{
+       val mutableResponse = MutableLiveData<String>()
+       dbFirestore.collection("USUARIOS").whereEqualTo("user", user).get().addOnSuccessListener {
+           if(it.size() != 0){
+               mutableResponse.value ="Usuario existe"
+               CredentialsLogin.id_documento = it.documents[0].id
+           }else{
+               mutableResponse.value = "No existe Usuario"
+           }
+       }
+       return mutableResponse
     }
 
     fun saveDataUserGoogle(user:String,foto:String,nameUser:String):LiveData<Boolean>{
