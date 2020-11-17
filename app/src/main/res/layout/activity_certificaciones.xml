@@ -12,10 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/primaryDarkColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/primaryDarkColor">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -121,7 +118,8 @@
             app:fabCustomSize="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="60dp" />
+            app:maxImageSize="60dp"
+            android:contentDescription="@string/imgDescription"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
