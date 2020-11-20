@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_chronometer.view.*
 
 class ChronometerFragment : Fragment() {
     private val viewModel by lazy{ this.viewModel()}
+    private val prefs by lazy { this.activity!!.preferences() }
     private lateinit var cronometroView:CountDownTimer
     private  lateinit var chronometerTextView :TextView
     override fun onCreateView(
@@ -93,7 +94,6 @@ class ChronometerFragment : Fragment() {
     }
 
     private fun guardarDatos(notaString: String, porcentajeAprobado: Int) {
-        val prefs = preferencesSaldivar(this.activity!!,0,"Datos_Usuario")
         val user = prefs.getString("email_User",CredentialsLogin.usuario)!!
         HistorialObject.estado_examen = porcentajeAprobado>=CertificationObject.porcentajeAprobar
         HistorialObject.nota_examen = notaString
