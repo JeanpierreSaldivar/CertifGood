@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun actividadUser() {
-        when(prefs.getString(getString(R.string.activo_User), "")){
+        when(prefs.devolverDatoUser(getString(R.string.activo_User))){
             getString(R.string.activo_User)->nextCertificacionesActivity()
             else->nextLoginActivity()
         }
